@@ -1,0 +1,47 @@
+<html !doctype>
+<head>
+    <title>Demo: makeup-linear-navigation-model</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <style>
+
+    </style>
+</head>
+<body>
+    <main role="main">
+        <h1>makeup-linear-navigation-model</h1>
+
+        <h2>Focus on container</h2>
+        <div class="widget" tabindex="0">
+            <ul>
+                <li>Item 0</li>
+                <li>Item 1</li>
+                <li>Item 2</li>
+            </ul>
+            <label>Index</label>
+            <input type="text" class="console" readonly disabled />
+        </div>
+
+        <h2>Focus on children</h2>
+        <div class="widget">
+            <ul>
+                <li tabindex="0">Item 0</li>
+                <li tabindex="0">Item 1</li>
+                <li tabindex="0">Item 2</li>
+            </ul>
+            <label>Index</label>
+            <input type="text" class="console" readonly disabled />
+        </div>
+
+        <hr />
+
+        <button id="appender">Append New Items</button>
+        <fieldset>
+            <legend>Options</legend>
+            <label>Wrap</label><input id="wrap" type="checkbox">
+        </fieldset>
+    </main>
+
+</body>
+<!-- <lasso-body> --><script src="./static/bundle.js"></script>
+<script>$_mod.ready();</script><!-- </lasso-body> -->
+</html>
