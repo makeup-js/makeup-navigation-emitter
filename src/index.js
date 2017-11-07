@@ -3,6 +3,7 @@
 // requires Object.assign polyfill or transform for IE
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill
 
+const Util = require('./util.js');
 const KeyEmitter = require('makeup-key-emitter');
 const ExitEmitter = require('makeup-exit-emitter');
 const dataSetKey = 'data-makeup-index';
@@ -12,7 +13,7 @@ const defaultOptions = {
 };
 
 function setData(els) {
-    Array.prototype.slice.call(els).forEach(function(el, index) {
+    els.forEach(function(el, index) {
         el.setAttribute(dataSetKey, index);
     });
 }
@@ -48,19 +49,20 @@ function onKeyEnd() {
     this.index = this.items.length;
 }
 
-function onFocusExit(e) {
-    console.log(e);
+function onFocusExit() {
+    // console.log(e);
 }
 
-function onMutation(m) {
-    console.log(m);
-    this._itemEls = this._widgetEl.querySelectorAll(this._itemSelector);
-    setData(this._itemEls);
+function onMutation() {
+    this._items = Util.nodeListToArray(this._el.querySelectorAll(this._itemSelector));
+    setData(this._items);
+
+    this._el.dispatchEvent(new CustomEvent('navigationModelMutation'));
 }
 
 class NavigationModel {
     get items() {
-        return this._itemEls;
+        return this._items;
     }
 
     set options(newOptions) {
@@ -73,15 +75,15 @@ class NavigationModel {
 }
 
 class LinearNavigationModel extends NavigationModel {
-    constructor(widgetEl, itemSelector, selectedOptions) {
+    constructor(el, itemSelector, selectedOptions) {
         super();
         this._options = Object.assign({}, defaultOptions, selectedOptions);
 
         this._index = null;
 
-        this._widgetEl = widgetEl;
+        this._el = el;
         this._itemSelector = itemSelector;
-        this._itemEls = widgetEl.querySelectorAll(itemSelector);
+        this._items = Util.nodeListToArray(el.querySelectorAll(itemSelector));
     }
 
     get index() {
@@ -90,7 +92,7 @@ class LinearNavigationModel extends NavigationModel {
 
     set index(newIndex) {
         if (newIndex !== this.index) {
-            this._widgetEl.dispatchEvent(new CustomEvent('navigationModelChange', {
+            this._el.dispatchEvent(new CustomEvent('navigationModelChange', {
                 detail: {
                     toIndex: newIndex,
                     fromIndex: this.index
@@ -114,7 +116,7 @@ class LinearNavigationModel extends NavigationModel {
 
 /*
 class GridModel extends NavigationModel {
-    constructor(widgetEl, rowSelector, colSelector) {
+    constructor(el, rowSelector, colSelector) {
         super();
         this._coords = null;
     }

@@ -1,3 +1,14 @@
+$_mod.def("/makeup-navigation-emitter$0.0.1/util", function(require, exports, module, __filename, __dirname) { "use strict";
+
+function nodeListToArray(nodeList) {
+    return Array.prototype.slice.call(nodeList);
+}
+
+module.exports = {
+    nodeListToArray: nodeListToArray
+};
+
+});
 $_mod.installed("makeup-navigation-emitter$0.0.1", "makeup-key-emitter", "0.0.2");
 $_mod.main("/makeup-key-emitter$0.0.2", "");
 $_mod.installed("makeup-key-emitter$0.0.2", "custom-event-polyfill", "0.3.0");
@@ -236,6 +247,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var Util = require('/makeup-navigation-emitter$0.0.1/util'/*'./util.js'*/);
 var KeyEmitter = require('/makeup-key-emitter$0.0.2/index'/*'makeup-key-emitter'*/);
 var ExitEmitter = require('/makeup-exit-emitter$0.0.2/index'/*'makeup-exit-emitter'*/);
 var dataSetKey = 'data-makeup-index';
@@ -245,7 +257,7 @@ var defaultOptions = {
 };
 
 function setData(els) {
-    Array.prototype.slice.call(els).forEach(function (el, index) {
+    els.forEach(function (el, index) {
         el.setAttribute(dataSetKey, index);
     });
 }
@@ -281,14 +293,15 @@ function onKeyEnd() {
     this.index = this.items.length;
 }
 
-function onFocusExit(e) {
-    console.log(e);
+function onFocusExit() {
+    // console.log(e);
 }
 
-function onMutation(m) {
-    console.log(m);
-    this._itemEls = this._widgetEl.querySelectorAll(this._itemSelector);
-    setData(this._itemEls);
+function onMutation() {
+    this._items = Util.nodeListToArray(this._el.querySelectorAll(this._itemSelector));
+    setData(this._items);
+
+    this._el.dispatchEvent(new CustomEvent('navigationModelMutation'));
 }
 
 var NavigationModel = function () {
@@ -299,7 +312,7 @@ var NavigationModel = function () {
     _createClass(NavigationModel, [{
         key: 'items',
         get: function get() {
-            return this._itemEls;
+            return this._items;
         }
     }, {
         key: 'options',
@@ -319,7 +332,7 @@ var NavigationModel = function () {
 var LinearNavigationModel = function (_NavigationModel) {
     _inherits(LinearNavigationModel, _NavigationModel);
 
-    function LinearNavigationModel(widgetEl, itemSelector, selectedOptions) {
+    function LinearNavigationModel(el, itemSelector, selectedOptions) {
         _classCallCheck(this, LinearNavigationModel);
 
         var _this = _possibleConstructorReturn(this, (LinearNavigationModel.__proto__ || Object.getPrototypeOf(LinearNavigationModel)).call(this));
@@ -328,9 +341,9 @@ var LinearNavigationModel = function (_NavigationModel) {
 
         _this._index = null;
 
-        _this._widgetEl = widgetEl;
+        _this._el = el;
         _this._itemSelector = itemSelector;
-        _this._itemEls = widgetEl.querySelectorAll(itemSelector);
+        _this._items = Util.nodeListToArray(el.querySelectorAll(itemSelector));
         return _this;
     }
 
@@ -351,7 +364,7 @@ var LinearNavigationModel = function (_NavigationModel) {
         },
         set: function set(newIndex) {
             if (newIndex !== this.index) {
-                this._widgetEl.dispatchEvent(new CustomEvent('navigationModelChange', {
+                this._el.dispatchEvent(new CustomEvent('navigationModelChange', {
                     detail: {
                         toIndex: newIndex,
                         fromIndex: this.index
@@ -370,7 +383,7 @@ var LinearNavigationModel = function (_NavigationModel) {
 
 /*
 class GridModel extends NavigationModel {
-    constructor(widgetEl, rowSelector, colSelector) {
+    constructor(el, rowSelector, colSelector) {
         super();
         this._coords = null;
     }
