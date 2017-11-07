@@ -32,7 +32,7 @@
   ],
   "devDependencies": {
     "babel-cli": "^6",
-    "babel-plugin-transform-object-assign": "^6.22.0",
+    "babel-plugin-transform-object-assign": "^6",
     "babel-preset-env": "^1",
     "browser-sync": "^2",
     "coveralls": "^3",
@@ -49,5 +49,9 @@
     "parallelshell": "^3",
     "pre-commit": "^1",
     "rimraf": "^2"
+  },
+  "dependencies": {
+    "makeup-exit-emitter": "~0.0",
+    "makeup-key-emitter": "~0.0"
   }
 }

@@ -591,9 +591,9 @@ https://github.com/joyent/node/blob/master/lib/module.js
     }
 })();
 
-$_mod.installed("makeup-navigation-emitter$0.0.1", "makeup-key-emitter", "0.0.1");
-$_mod.main("/makeup-key-emitter$0.0.1", "");
-$_mod.installed("makeup-key-emitter$0.0.1", "custom-event-polyfill", "0.3.0");
+$_mod.installed("makeup-navigation-emitter$0.0.1", "makeup-key-emitter", "0.0.2");
+$_mod.main("/makeup-key-emitter$0.0.2", "");
+$_mod.installed("makeup-key-emitter$0.0.2", "custom-event-polyfill", "0.3.0");
 $_mod.main("/custom-event-polyfill$0.3.0", "custom-event-polyfill");
 $_mod.def("/custom-event-polyfill$0.3.0/custom-event-polyfill", function(require, exports, module, __filename, __dirname) { // Polyfill for creating CustomEvents on IE9/10/11
 
@@ -642,7 +642,7 @@ try {
 
 });
 $_mod.run("/custom-event-polyfill$0.3.0/custom-event-polyfill");
-$_mod.def("/makeup-key-emitter$0.0.1/util", function(require, exports, module, __filename, __dirname) { 'use strict';
+$_mod.def("/makeup-key-emitter$0.0.2/util", function(require, exports, module, __filename, __dirname) { 'use strict';
 
 /*
     IE uses a different naming scheme for KeyboardEvent.key so we map the keyCode instead
@@ -673,12 +673,12 @@ module.exports = {
 };
 
 });
-$_mod.def("/makeup-key-emitter$0.0.1/index", function(require, exports, module, __filename, __dirname) { 'use strict';
+$_mod.def("/makeup-key-emitter$0.0.2/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
 // requires CustomEvent polyfill for IE9+
 // https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
 
-var util = require('/makeup-key-emitter$0.0.1/util'/*'./util.js'*/);
+var util = require('/makeup-key-emitter$0.0.2/util'/*'./util.js'*/);
 
 function onKeyDownOrUp(evt, el, keyEventType) {
     if (!evt.shiftKey) {
@@ -751,10 +751,10 @@ module.exports = {
 };
 
 });
-$_mod.installed("makeup-navigation-emitter$0.0.1", "makeup-exit-emitter", "0.0.1");
-$_mod.main("/makeup-exit-emitter$0.0.1", "");
-$_mod.installed("makeup-exit-emitter$0.0.1", "custom-event-polyfill", "0.3.0");
-$_mod.def("/makeup-exit-emitter$0.0.1/index", function(require, exports, module, __filename, __dirname) { 'use strict';
+$_mod.installed("makeup-navigation-emitter$0.0.1", "makeup-exit-emitter", "0.0.2");
+$_mod.main("/makeup-exit-emitter$0.0.2", "");
+$_mod.installed("makeup-exit-emitter$0.0.2", "custom-event-polyfill", "0.3.0");
+$_mod.def("/makeup-exit-emitter$0.0.2/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
 // requires CustomEvent polyfill for IE9+
 // https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
@@ -817,7 +817,7 @@ module.exports = {
 });
 $_mod.def("/makeup-navigation-emitter$0.0.1/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
-// requires Object.assign polyfill for IE11
+// requires Object.assign polyfill or transform for IE
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -830,8 +830,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var KeyEmitter = require('/makeup-key-emitter$0.0.1/index'/*'makeup-key-emitter'*/);
-var ExitEmitter = require('/makeup-exit-emitter$0.0.1/index'/*'makeup-exit-emitter'*/);
+var KeyEmitter = require('/makeup-key-emitter$0.0.2/index'/*'makeup-key-emitter'*/);
+var ExitEmitter = require('/makeup-exit-emitter$0.0.2/index'/*'makeup-exit-emitter'*/);
 var dataSetKey = 'data-makeup-index';
 
 var defaultOptions = {

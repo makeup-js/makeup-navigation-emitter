@@ -25,10 +25,6 @@ npm install makeup-navigation-emitter
 yarn add makeup-navigation-emitter
 ```
 
-## Browser Support
-
-IE requires Object.assign polyfill (included via Lasso).
-
 ## Dependencies
 
 * makeup-exit-emitter

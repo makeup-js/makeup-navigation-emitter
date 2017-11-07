@@ -1,6 +1,6 @@
 'use strict';
 
-// requires Object.assign polyfill for IE11
+// requires Object.assign polyfill or transform for IE
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill
 
 const KeyEmitter = require('makeup-key-emitter');
