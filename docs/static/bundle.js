@@ -910,13 +910,8 @@ var NavigationModel = function () {
         }
     }, {
         key: 'options',
-        set: function set(newOptions) {
-            this._options = newOptions;
-        }
-    }, {
-        key: 'wrap',
-        set: function set(newWrap) {
-            this._options.wrap = newWrap;
+        get: function get() {
+            return this._options;
         }
     }]);
 
@@ -1069,8 +1064,8 @@ widgetEls.forEach(function(el, index) {
 });
 
 wrapCheckbox.addEventListener('change', function(e) {
-    emitters[0].model.wrap = e.target.checked;
-    emitters[1].model.wrap = e.target.checked;
+    emitters[0].model.options.wrap = e.target.checked;
+    emitters[1].model.options.wrap = e.target.checked;
 });
 
 // emitters[0].model.index = 0;

@@ -65,12 +65,8 @@ class NavigationModel {
         return this._items;
     }
 
-    set options(newOptions) {
-        this._options = newOptions;
-    }
-
-    set wrap(newWrap) {
-        this._options.wrap = newWrap;
+    get options() {
+        return this._options;
     }
 }
 

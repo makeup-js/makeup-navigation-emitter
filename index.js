@@ -82,13 +82,8 @@ var NavigationModel = function () {
         }
     }, {
         key: 'options',
-        set: function set(newOptions) {
-            this._options = newOptions;
-        }
-    }, {
-        key: 'wrap',
-        set: function set(newWrap) {
-            this._options.wrap = newWrap;
+        get: function get() {
+            return this._options;
         }
     }]);
 

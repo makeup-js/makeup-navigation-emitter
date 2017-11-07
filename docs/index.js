@@ -26,8 +26,8 @@ widgetEls.forEach(function(el, index) {
 });
 
 wrapCheckbox.addEventListener('change', function(e) {
-    emitters[0].model.wrap = e.target.checked;
-    emitters[1].model.wrap = e.target.checked;
+    emitters[0].model.options.wrap = e.target.checked;
+    emitters[1].model.options.wrap = e.target.checked;
 });
 
 // emitters[0].model.index = 0;
