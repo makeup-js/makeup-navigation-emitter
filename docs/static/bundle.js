@@ -591,20 +591,7 @@ https://github.com/joyent/node/blob/master/lib/module.js
     }
 })();
 
-$_mod.def("/makeup-navigation-emitter$0.0.1/util", function(require, exports, module, __filename, __dirname) { "use strict";
-
-function nodeListToArray(nodeList) {
-    return Array.prototype.slice.call(nodeList);
-}
-
-module.exports = {
-    nodeListToArray: nodeListToArray
-};
-
-});
-$_mod.installed("makeup-navigation-emitter$0.0.1", "makeup-key-emitter", "0.0.2");
-$_mod.main("/makeup-key-emitter$0.0.2", "");
-$_mod.installed("makeup-key-emitter$0.0.2", "custom-event-polyfill", "0.3.0");
+$_mod.installed("makeup-navigation-emitter$0.0.1", "custom-event-polyfill", "0.3.0");
 $_mod.main("/custom-event-polyfill$0.3.0", "custom-event-polyfill");
 $_mod.def("/custom-event-polyfill$0.3.0/custom-event-polyfill", function(require, exports, module, __filename, __dirname) { // Polyfill for creating CustomEvents on IE9/10/11
 
@@ -653,6 +640,20 @@ try {
 
 });
 $_mod.run("/custom-event-polyfill$0.3.0/custom-event-polyfill");
+$_mod.def("/makeup-navigation-emitter$0.0.1/util", function(require, exports, module, __filename, __dirname) { "use strict";
+
+function nodeListToArray(nodeList) {
+    return Array.prototype.slice.call(nodeList);
+}
+
+module.exports = {
+    nodeListToArray: nodeListToArray
+};
+
+});
+$_mod.installed("makeup-navigation-emitter$0.0.1", "makeup-key-emitter", "0.0.2");
+$_mod.main("/makeup-key-emitter$0.0.2", "");
+$_mod.installed("makeup-key-emitter$0.0.2", "custom-event-polyfill", "0.3.0");
 $_mod.def("/makeup-key-emitter$0.0.2/util", function(require, exports, module, __filename, __dirname) { 'use strict';
 
 /*
@@ -847,6 +848,8 @@ var ExitEmitter = require('/makeup-exit-emitter$0.0.2/index'/*'makeup-exit-emitt
 var dataSetKey = 'data-makeup-index';
 
 var defaultOptions = {
+    autoInit: 0,
+    autoReset: null,
     wrap: false
 };
 
@@ -888,7 +891,9 @@ function onKeyEnd() {
 }
 
 function onFocusExit() {
-    // console.log(e);
+    if (this._options.autoReset !== null) {
+        this.index = this._options.autoReset;
+    }
 }
 
 function onMutation() {
@@ -927,10 +932,8 @@ var LinearNavigationModel = function (_NavigationModel) {
         var _this = _possibleConstructorReturn(this, (LinearNavigationModel.__proto__ || Object.getPrototypeOf(LinearNavigationModel)).call(this));
 
         _this._options = _extends({}, defaultOptions, selectedOptions);
-
-        _this._index = null;
-
         _this._el = el;
+        _this._index = _this._options.autoInit;
         _this._itemSelector = itemSelector;
         _this._items = Util.nodeListToArray(el.querySelectorAll(itemSelector));
         return _this;
@@ -944,7 +947,7 @@ var LinearNavigationModel = function (_NavigationModel) {
     }, {
         key: 'atStart',
         value: function atStart() {
-            return this.index === 0;
+            return this.index <= 0;
         }
     }, {
         key: 'index',
@@ -958,7 +961,7 @@ var LinearNavigationModel = function (_NavigationModel) {
                         toIndex: newIndex,
                         fromIndex: this.index
                     },
-                    bubbles: false // mirror the native mouseleave event
+                    bubbles: false
                 }));
                 this._index = newIndex;
             }
@@ -1048,28 +1051,37 @@ var widgetEls = nodeListToArray(document.querySelectorAll('.widget'));
 var consoleEls = document.querySelectorAll('.console');
 var wrapCheckbox = document.getElementById('wrap');
 
+var options = [
+    { },
+    { autoInit: -1, autoReset: -1 },
+    { autoInit: -1, autoReset: -1 }
+];
+
 appender.addEventListener('click', function() {
     widgetEls.forEach(function(el) {
+        var listEl = el.querySelector('ul');
         var listItem = document.createElement('li');
-        listItem.innerText = 'Item ' + parseInt(el.querySelectorAll('li').length, 10);
-        el.children[0].appendChild(listItem);
+        listItem.innerText = 'Item ' + parseInt(listEl.querySelectorAll('li').length, 10);
+        listEl.appendChild(listItem);
     });
 });
 
 widgetEls.forEach(function(el, index) {
-    emitters.push(NavigationEmitter.createLinear(el, 'li'));
     el.addEventListener('navigationModelChange', function(e) {
         consoleEls[index].value = e.detail.toIndex;
     });
+    emitters.push(NavigationEmitter.createLinear(el, 'li', options[index]));
+    consoleEls[index].value = emitters[index].model.index;
 });
 
 wrapCheckbox.addEventListener('change', function(e) {
-    emitters[0].model.options.wrap = e.target.checked;
-    emitters[1].model.options.wrap = e.target.checked;
+    emitters.forEach(function(emitter) {
+        emitter.model.options.wrap = e.target.checked;
+    });
 });
 
-// emitters[0].model.index = 0;
-// emitters[1].model.index = 0;
+// emitters[0].model.index = 1;
+// emitters[1].model.index = 1;
 
 });
 $_mod.run("/makeup-navigation-emitter$0.0.1/docs/index");

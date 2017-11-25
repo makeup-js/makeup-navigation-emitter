@@ -19,6 +19,8 @@ var ExitEmitter = require('makeup-exit-emitter');
 var dataSetKey = 'data-makeup-index';
 
 var defaultOptions = {
+    autoInit: 0,
+    autoReset: null,
     wrap: false
 };
 
@@ -60,7 +62,9 @@ function onKeyEnd() {
 }
 
 function onFocusExit() {
-    // console.log(e);
+    if (this._options.autoReset !== null) {
+        this.index = this._options.autoReset;
+    }
 }
 
 function onMutation() {
@@ -99,10 +103,8 @@ var LinearNavigationModel = function (_NavigationModel) {
         var _this = _possibleConstructorReturn(this, (LinearNavigationModel.__proto__ || Object.getPrototypeOf(LinearNavigationModel)).call(this));
 
         _this._options = _extends({}, defaultOptions, selectedOptions);
-
-        _this._index = null;
-
         _this._el = el;
+        _this._index = _this._options.autoInit;
         _this._itemSelector = itemSelector;
         _this._items = Util.nodeListToArray(el.querySelectorAll(itemSelector));
         return _this;
@@ -116,7 +118,7 @@ var LinearNavigationModel = function (_NavigationModel) {
     }, {
         key: 'atStart',
         value: function atStart() {
-            return this.index === 0;
+            return this.index <= 0;
         }
     }, {
         key: 'index',
@@ -130,7 +132,7 @@ var LinearNavigationModel = function (_NavigationModel) {
                         toIndex: newIndex,
                         fromIndex: this.index
                     },
-                    bubbles: false // mirror the native mouseleave event
+                    bubbles: false
                 }));
                 this._index = newIndex;
             }

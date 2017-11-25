@@ -9,6 +9,8 @@ const ExitEmitter = require('makeup-exit-emitter');
 const dataSetKey = 'data-makeup-index';
 
 const defaultOptions = {
+    autoInit: 0,
+    autoReset: null,
     wrap: false
 };
 
@@ -50,7 +52,9 @@ function onKeyEnd() {
 }
 
 function onFocusExit() {
-    // console.log(e);
+    if (this._options.autoReset !== null) {
+        this.index = this._options.autoReset;
+    }
 }
 
 function onMutation() {
@@ -74,10 +78,8 @@ class LinearNavigationModel extends NavigationModel {
     constructor(el, itemSelector, selectedOptions) {
         super();
         this._options = Object.assign({}, defaultOptions, selectedOptions);
-
-        this._index = null;
-
         this._el = el;
+        this._index = this._options.autoInit;
         this._itemSelector = itemSelector;
         this._items = Util.nodeListToArray(el.querySelectorAll(itemSelector));
     }
@@ -93,7 +95,7 @@ class LinearNavigationModel extends NavigationModel {
                     toIndex: newIndex,
                     fromIndex: this.index
                 },
-                bubbles: false // mirror the native mouseleave event
+                bubbles: false
             }));
             this._index = newIndex;
         }
@@ -104,7 +106,7 @@ class LinearNavigationModel extends NavigationModel {
     }
 
     atStart() {
-        return this.index === 0;
+        return this.index <= 0;
     }
 }
 

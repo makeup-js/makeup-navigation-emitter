@@ -1,45 +1,61 @@
-<html !doctype>
-<head>
-    <title>Demo: makeup-navigation-emitter</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <style>
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Demo: makeup-navigation-emitter</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <style>
 
-    </style>
-</head>
-<body>
-    <main role="main">
-        <h1>makeup-navigation-emitter</h1>
+        </style>
+    </head>
+    <body>
+        <main role="main">
+            <h1>makeup-navigation-emitter</h1>
+            <p>Set focus inside any of the dumb widgets, then use ARROW keys to update model.</p>
+            <p>This module does not do any focus management, it only models state, and triggers an event on state change (see developer console for events).</p>
+            <p>This module creates the underlying model for <a href="https://github.com/makeup-js/makeup-roving-tabindex">makeup-roving-tabindex</a> and <a href="https://github.com/makeup-js/makeup-active-descendant">makeup-active-descendant</a>. You probably don't need to use this module directly.</p>
 
-        <h2>Focus on container</h2>
-        <div class="widget" tabindex="0">
-            <ul>
-                <li>Item 0</li>
-                <li>Item 1</li>
-                <li>Item 2</li>
-            </ul>
-            <label>Index</label>
-            <input type="text" class="console" readonly disabled />
-        </div>
+            <h2>Example 1</h2>
+            <div class="widget">
+                <ul>
+                    <li tabindex="0">Item 0</li>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                </ul>
+                <label>Index</label>
+                <input type="text" class="console" readonly disabled />
+            </div>
 
-        <h2>Focus on children</h2>
-        <div class="widget">
-            <ul>
-                <li tabindex="0">Item 0</li>
-                <li tabindex="0">Item 1</li>
-                <li tabindex="0">Item 2</li>
-            </ul>
-            <label>Index</label>
-            <input type="text" class="console" readonly disabled />
-        </div>
-    
-        <fieldset>
-            <legend>Tools</legend>
-            <button id="appender">Append New Items</button>
-            <label>Wrap</label><input id="wrap" type="checkbox">
-        </fieldset>
-    </main>
+            <h2>Example 2</h2>
+            <div class="widget" tabindex="0">
+                <ul>
+                    <li>Item 0</li>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                </ul>
+                <label>Index</label>
+                <input type="text" class="console" readonly disabled />
+            </div>
 
-</body>
-<!-- <lasso-body> --><script src="./static/bundle.js"></script>
+            <h2>Example 3</h2>
+            <div class="widget">
+                <input />
+                <ul>
+                    <li>Item 0</li>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                </ul>
+                <label>Index</label>
+                <input type="text" class="console" readonly disabled />
+            </div>
+
+            <fieldset>
+                <legend>Tools</legend>
+                <button id="appender">Append New Items</button>
+                <label>Wrap</label><input id="wrap" type="checkbox">
+            </fieldset>
+        </main>
+
+    </body>
+    <!-- <lasso-body> --><script src="./static/bundle.js"></script>
 <script>$_mod.ready();</script><!-- </lasso-body> -->
 </html>

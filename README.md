@@ -7,13 +7,14 @@
     <a href="https://david-dm.org/makeup-js/makeup-navigation-emitter#info=devDependencies"><img src="https://david-dm.org/makeup-js/makeup-navigation-emitter/dev-status.svg" alt="devDependency status" /></a>
 </p>
 
-Emits custom events based on keyboard navigation of one or two dimensional model.
-
 A vanilla JavaScript port of <a href="https://github.com/ianmcburnie/jquery-linear-navigation">jquery-linear-navigation</a>.
+
+Emits custom events based on keyboard navigation of one or two dimensional model.
 
 ## Experimental
 
-This module is still in an experimental state, until it reaches v1.0.0 you must consider all minor releases as breaking changes. Patch releases may introduce new features, but will be backwards compatible.
+This module is still in an experimental state, until it reaches v1.0.0 you must consider all minor releases as breaking
+changes. Patch releases may introduce new features, but will be backwards compatible.
 
 ## Install
 
@@ -25,10 +26,101 @@ npm install makeup-navigation-emitter
 yarn add makeup-navigation-emitter
 ```
 
+## Example 1
+
+Example support for a roving tabindex model of keyboard navigation.
+
+Note that this module will not change focus, that is the job of an observer such as makeup-roving-tabindex.
+
+```html
+<div class="widget">
+    <ul>
+        <li tabindex="0">Item 0</li>
+        <li>Item 1</li>
+        <li>Item 2</li>
+    </ul>
+</div>
+```
+
+```js
+const NavigationEmitter = require('makeup-navigation-emitter');
+
+const widgetEl = document.querySelector('.widget');
+
+var emitter = NavigationEmitter.createLinear(widgetEl, 'li'));
+
+widgetEl.addEventListener('navigationModelChange', function(e) {
+    console.log(e.detail.fromIndex, e.detail.toIndex);
+});
+```
+
+## Example 2
+
+Example support for an active descendant model of navigation with focus on ancestor of items.
+
+Note that this module will not highlight the active item, that is the job of an observer such as makeup-active-descendant.
+
+```html
+<div class="widget" tabindex="0">
+    <ul>
+        <li>Item 0</li>
+        <li>Item 1</li>
+        <li>Item 2</li>
+    </ul>
+</div>
+```
+
+```js
+const NavigationEmitter = require('makeup-navigation-emitter');
+
+const widgetEl = document.querySelector('.widget');
+
+var emitter = NavigationEmitter.createLinear(widgetEl, 'li', { autoInit: -1, autoReset: -1 }));
+
+widgetEl.addEventListener('navigationModelChange', function(e) {
+    console.log(e.detail.fromIndex, e.detail.toIndex);
+});
+```
+
+## Example 3
+
+Example support for an active descendant model of navigation with focus on non-ancestor of items.
+
+Note that this module will not highlight the active item, that is the job of an observer such as makeup-active-descendant.
+
+```html
+<div class="widget">
+    <input type="text" />
+    <ul>
+        <li>Item 0</li>
+        <li>Item 1</li>
+        <li>Item 2</li>
+    </ul>
+</div>
+```
+
+```js
+const NavigationEmitter = require('makeup-navigation-emitter');
+
+const widgetEl = document.querySelector('.widget');
+
+var emitter = NavigationEmitter.createLinear(widgetEl, 'li', { autoInit: -1, autoReset: -1 }));
+
+widgetEl.addEventListener('navigationModelChange', function(e) {
+    console.log(e.detail.fromIndex, e.detail.toIndex);
+});
+```
+
+## Options
+
+* `autoInit`: specify an integer or -1 for initial index (default: 0)
+* `autoReset`: specify an integer or -1 for index position when focus exits widget (default: null)
+* `wrap` : specify whether arrow keys should wrap/loop (default: false)
+
 ## Dependencies
 
-* makeup-exit-emitter
-* makeup-key-emitter
+* https://github.com/makeup-js/makeup-exit-emitter
+* https://github.com/makeup-js/makeup-key-emitter
 
 ## Development
 
