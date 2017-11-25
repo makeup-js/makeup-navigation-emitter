@@ -23,7 +23,7 @@ function setData(els) {
 function onKeyPrev() {
     if (!this.atStart()) {
         this.index--;
-    } else if (this._options.wrap) {
+    } else if (this.options.wrap) {
         this.index = (this.items.length - 1);
     }
 }
@@ -31,7 +31,7 @@ function onKeyPrev() {
 function onKeyNext() {
     if (!this.atEnd()) {
         this.index++;
-    } else if (this._options.wrap) {
+    } else if (this.options.wrap) {
         this.index = 0;
     }
 }
@@ -52,36 +52,40 @@ function onKeyEnd() {
 }
 
 function onFocusExit() {
-    if (this._options.autoReset !== null) {
-        this.index = this._options.autoReset;
+    if (this.options.autoReset !== null) {
+        this.index = this.options.autoReset;
     }
 }
 
 function onMutation() {
-    this._items = Util.nodeListToArray(this._el.querySelectorAll(this._itemSelector));
-    setData(this._items);
+    this.items = Util.nodeListToArray(this._el.querySelectorAll(this._itemSelector));
+    setData(this.items);
 
     this._el.dispatchEvent(new CustomEvent('navigationModelMutation'));
 }
 
 class NavigationModel {
-    get items() {
-        return this._items;
-    }
-
-    get options() {
-        return this._options;
+    constructor(el, itemSelector, selectedOptions) {
+        this.options = Object.assign({}, defaultOptions, selectedOptions);
+        this._el = el;
+        this._itemSelector = itemSelector;
+        this.items = Util.nodeListToArray(el.querySelectorAll(itemSelector));
     }
 }
 
 class LinearNavigationModel extends NavigationModel {
     constructor(el, itemSelector, selectedOptions) {
-        super();
-        this._options = Object.assign({}, defaultOptions, selectedOptions);
-        this._el = el;
-        this._index = this._options.autoInit;
-        this._itemSelector = itemSelector;
-        this._items = Util.nodeListToArray(el.querySelectorAll(itemSelector));
+        super(el, itemSelector, selectedOptions);
+
+        if (this.options.autoInit !== null) {
+            this._index = this.options.autoInit;
+            this._el.dispatchEvent(new CustomEvent('navigationModelInit', {
+                detail: {
+                    toIndex: this.options.autoInit
+                },
+                bubbles: false
+            }));
+        }
     }
 
     get index() {
@@ -123,35 +127,31 @@ class GridModel extends NavigationModel {
 
 class NavigationEmitter {
     constructor(el, model) {
-        this._model = model;
+        this.model = model;
 
-        this.keyPrevListener = onKeyPrev.bind(model);
-        this.keyNextListener = onKeyNext.bind(model);
-        this.keyHomeListener = onKeyHome.bind(model);
-        this.keyEndListener = onKeyEnd.bind(model);
-        this.clickListener = onClick.bind(model);
-        this.focusExitListener = onFocusExit.bind(model);
-        this.observer = new MutationObserver(onMutation.bind(model));
+        this._keyPrevListener = onKeyPrev.bind(model);
+        this._keyNextListener = onKeyNext.bind(model);
+        this._keyHomeListener = onKeyHome.bind(model);
+        this._keyEndListener = onKeyEnd.bind(model);
+        this._clickListener = onClick.bind(model);
+        this._focusExitListener = onFocusExit.bind(model);
+        this._observer = new MutationObserver(onMutation.bind(model));
 
         setData(model.items);
 
         KeyEmitter.addKeyDown(el);
         ExitEmitter.addFocusExit(el);
 
-        el.addEventListener('arrowLeftKeyDown', this.keyPrevListener);
-        el.addEventListener('arrowRightKeyDown', this.keyNextListener);
-        el.addEventListener('arrowUpKeyDown', this.keyPrevListener);
-        el.addEventListener('arrowDownKeyDown', this.keyNextListener);
-        el.addEventListener('homeKeyDown', this.keyHomeListener);
-        el.addEventListener('endKeyDown', this.keyEndListener);
-        el.addEventListener('click', this.clickListener);
-        el.addEventListener('focusExit', this.focusExitListener);
+        el.addEventListener('arrowLeftKeyDown', this._keyPrevListener);
+        el.addEventListener('arrowRightKeyDown', this._keyNextListener);
+        el.addEventListener('arrowUpKeyDown', this._keyPrevListener);
+        el.addEventListener('arrowDownKeyDown', this._keyNextListener);
+        el.addEventListener('homeKeyDown', this._keyHomeListener);
+        el.addEventListener('endKeyDown', this._keyEndListener);
+        el.addEventListener('click', this._clickListener);
+        el.addEventListener('focusExit', this._focusExitListener);
 
-        this.observer.observe(el, { childList: true, subtree: true });
-    }
-
-    get model() {
-        return this._model;
+        this._observer.observe(el, { childList: true, subtree: true });
     }
 
     static createLinear(el, itemSelector, selectedOptions) {
@@ -160,9 +160,11 @@ class NavigationEmitter {
         return new NavigationEmitter(el, model);
     }
 
-    static createGrid(el, rowSelector, colSelector, selectedOptions) { // eslint-disable-line
+    /*
+    static createGrid(el, rowSelector, colSelector, selectedOptions) {
         return null;
     }
+    */
 }
 
 module.exports = NavigationEmitter;

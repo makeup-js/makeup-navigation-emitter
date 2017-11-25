@@ -3,9 +3,9 @@
 // requires Object.assign polyfill or transform for IE
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
@@ -33,7 +33,7 @@ function setData(els) {
 function onKeyPrev() {
     if (!this.atStart()) {
         this.index--;
-    } else if (this._options.wrap) {
+    } else if (this.options.wrap) {
         this.index = this.items.length - 1;
     }
 }
@@ -41,7 +41,7 @@ function onKeyPrev() {
 function onKeyNext() {
     if (!this.atEnd()) {
         this.index++;
-    } else if (this._options.wrap) {
+    } else if (this.options.wrap) {
         this.index = 0;
     }
 }
@@ -62,37 +62,26 @@ function onKeyEnd() {
 }
 
 function onFocusExit() {
-    if (this._options.autoReset !== null) {
-        this.index = this._options.autoReset;
+    if (this.options.autoReset !== null) {
+        this.index = this.options.autoReset;
     }
 }
 
 function onMutation() {
-    this._items = Util.nodeListToArray(this._el.querySelectorAll(this._itemSelector));
-    setData(this._items);
+    this.items = Util.nodeListToArray(this._el.querySelectorAll(this._itemSelector));
+    setData(this.items);
 
     this._el.dispatchEvent(new CustomEvent('navigationModelMutation'));
 }
 
-var NavigationModel = function () {
-    function NavigationModel() {
-        _classCallCheck(this, NavigationModel);
-    }
+var NavigationModel = function NavigationModel(el, itemSelector, selectedOptions) {
+    _classCallCheck(this, NavigationModel);
 
-    _createClass(NavigationModel, [{
-        key: 'items',
-        get: function get() {
-            return this._items;
-        }
-    }, {
-        key: 'options',
-        get: function get() {
-            return this._options;
-        }
-    }]);
-
-    return NavigationModel;
-}();
+    this.options = _extends({}, defaultOptions, selectedOptions);
+    this._el = el;
+    this._itemSelector = itemSelector;
+    this.items = Util.nodeListToArray(el.querySelectorAll(itemSelector));
+};
 
 var LinearNavigationModel = function (_NavigationModel) {
     _inherits(LinearNavigationModel, _NavigationModel);
@@ -100,13 +89,17 @@ var LinearNavigationModel = function (_NavigationModel) {
     function LinearNavigationModel(el, itemSelector, selectedOptions) {
         _classCallCheck(this, LinearNavigationModel);
 
-        var _this = _possibleConstructorReturn(this, (LinearNavigationModel.__proto__ || Object.getPrototypeOf(LinearNavigationModel)).call(this));
+        var _this = _possibleConstructorReturn(this, (LinearNavigationModel.__proto__ || Object.getPrototypeOf(LinearNavigationModel)).call(this, el, itemSelector, selectedOptions));
 
-        _this._options = _extends({}, defaultOptions, selectedOptions);
-        _this._el = el;
-        _this._index = _this._options.autoInit;
-        _this._itemSelector = itemSelector;
-        _this._items = Util.nodeListToArray(el.querySelectorAll(itemSelector));
+        if (_this.options.autoInit !== null) {
+            _this._index = _this.options.autoInit;
+            _this._el.dispatchEvent(new CustomEvent('navigationModelInit', {
+                detail: {
+                    toIndex: _this.options.autoInit
+                },
+                bubbles: false
+            }));
+        }
         return _this;
     }
 
@@ -157,51 +150,47 @@ var NavigationEmitter = function () {
     function NavigationEmitter(el, model) {
         _classCallCheck(this, NavigationEmitter);
 
-        this._model = model;
+        this.model = model;
 
-        this.keyPrevListener = onKeyPrev.bind(model);
-        this.keyNextListener = onKeyNext.bind(model);
-        this.keyHomeListener = onKeyHome.bind(model);
-        this.keyEndListener = onKeyEnd.bind(model);
-        this.clickListener = onClick.bind(model);
-        this.focusExitListener = onFocusExit.bind(model);
-        this.observer = new MutationObserver(onMutation.bind(model));
+        this._keyPrevListener = onKeyPrev.bind(model);
+        this._keyNextListener = onKeyNext.bind(model);
+        this._keyHomeListener = onKeyHome.bind(model);
+        this._keyEndListener = onKeyEnd.bind(model);
+        this._clickListener = onClick.bind(model);
+        this._focusExitListener = onFocusExit.bind(model);
+        this._observer = new MutationObserver(onMutation.bind(model));
 
         setData(model.items);
 
         KeyEmitter.addKeyDown(el);
         ExitEmitter.addFocusExit(el);
 
-        el.addEventListener('arrowLeftKeyDown', this.keyPrevListener);
-        el.addEventListener('arrowRightKeyDown', this.keyNextListener);
-        el.addEventListener('arrowUpKeyDown', this.keyPrevListener);
-        el.addEventListener('arrowDownKeyDown', this.keyNextListener);
-        el.addEventListener('homeKeyDown', this.keyHomeListener);
-        el.addEventListener('endKeyDown', this.keyEndListener);
-        el.addEventListener('click', this.clickListener);
-        el.addEventListener('focusExit', this.focusExitListener);
+        el.addEventListener('arrowLeftKeyDown', this._keyPrevListener);
+        el.addEventListener('arrowRightKeyDown', this._keyNextListener);
+        el.addEventListener('arrowUpKeyDown', this._keyPrevListener);
+        el.addEventListener('arrowDownKeyDown', this._keyNextListener);
+        el.addEventListener('homeKeyDown', this._keyHomeListener);
+        el.addEventListener('endKeyDown', this._keyEndListener);
+        el.addEventListener('click', this._clickListener);
+        el.addEventListener('focusExit', this._focusExitListener);
 
-        this.observer.observe(el, { childList: true, subtree: true });
+        this._observer.observe(el, { childList: true, subtree: true });
     }
 
-    _createClass(NavigationEmitter, [{
-        key: 'model',
-        get: function get() {
-            return this._model;
-        }
-    }], [{
+    _createClass(NavigationEmitter, null, [{
         key: 'createLinear',
         value: function createLinear(el, itemSelector, selectedOptions) {
             var model = new LinearNavigationModel(el, itemSelector, selectedOptions);
 
             return new NavigationEmitter(el, model);
         }
-    }, {
-        key: 'createGrid',
-        value: function createGrid(el, rowSelector, colSelector, selectedOptions) {
-            // eslint-disable-line
+
+        /*
+        static createGrid(el, rowSelector, colSelector, selectedOptions) {
             return null;
         }
+        */
+
     }]);
 
     return NavigationEmitter;

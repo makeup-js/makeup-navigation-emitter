@@ -1574,8 +1574,8 @@ escodegen@1.8.x, escodegen@^1.6.0, escodegen@^1.8.1:
     source-map "~0.2.0"
 
 eslint-config-ebay@~0.1:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/eslint-config-ebay/-/eslint-config-ebay-0.1.5.tgz#5103e2b5132e65d83d86dc10430359c230050848"
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/eslint-config-ebay/-/eslint-config-ebay-0.1.6.tgz#917a07cd776ab77078d3786b568e8b41c6e6a8b7"
 
 eslint-scope@^3.7.1:
   version "3.7.1"
