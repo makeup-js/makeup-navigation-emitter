@@ -117,6 +117,14 @@ widgetEl.addEventListener('navigationModelChange', function(e) {
 * `autoReset`: specify an integer or -1 for index position when focus exits widget (default: null)
 * `wrap` : specify whether arrow keys should wrap/loop (default: false)
 
+## Events
+
+* `navigationModelInit` - fired when the model is auto initialised
+* `navigationModelChange` - fired when the index is set by any means other than auto init or auto reset
+* `navigationModelReset` - fired when the model is auto reset
+
+For all 3 events, the event detail object contains the `fromIndex` and `toIndex`.
+
 ## Dependencies
 
 * https://github.com/makeup-js/makeup-exit-emitter
