@@ -26,11 +26,16 @@ appender.addEventListener('click', function() {
 });
 
 widgetEls.forEach(function(el, index) {
+    el.addEventListener('navigationModelInit', function(e) {
+        consoleEls[index].value = e.detail.toIndex;
+    });
     el.addEventListener('navigationModelChange', function(e) {
         consoleEls[index].value = e.detail.toIndex;
     });
+    el.addEventListener('navigationModelReset', function(e) {
+        consoleEls[index].value = e.detail.toIndex;
+    });
     emitters.push(NavigationEmitter.createLinear(el, 'li', options[index]));
-    consoleEls[index].value = emitters[index].model.index;
 });
 
 wrapCheckbox.addEventListener('change', function(e) {
