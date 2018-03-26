@@ -54,5 +54,10 @@
     "custom-event-polyfill": "^0.3.0",
     "makeup-exit-emitter": "~0.0",
     "makeup-key-emitter": "~0.0"
-  }
+  },
+  "files": [
+    "browser.json",
+    "index.js",
+    "yarn.lock"
+  ]
 }
