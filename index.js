@@ -164,7 +164,6 @@ var NavigationEmitter = function () {
         this._keyEndListener = onKeyEnd.bind(model);
         this._clickListener = onClick.bind(model);
         this._focusExitListener = onFocusExit.bind(model);
-        this._observer = new MutationObserver(onMutation.bind(model));
 
         setData(model.items);
 
@@ -180,7 +179,7 @@ var NavigationEmitter = function () {
         el.addEventListener('click', this._clickListener);
         el.addEventListener('focusExit', this._focusExitListener);
 
-        this._observer.observe(el, { childList: true, subtree: true });
+        Util.watchSubtree(el, onMutation.bind(model));
     }
 
     _createClass(NavigationEmitter, null, [{

@@ -640,14 +640,38 @@ try {
 
 });
 $_mod.run("/custom-event-polyfill$0.3.0/custom-event-polyfill");
-$_mod.def("/makeup-navigation-emitter$0.0.6/util", function(require, exports, module, __filename, __dirname) { "use strict";
+$_mod.def("/makeup-navigation-emitter$0.0.6/util", function(require, exports, module, __filename, __dirname) { 'use strict';
+
+var watchSubtree = void 0;
+
+if (typeof window !== 'undefined') {
+    var raf = window.requestAnimationFrame || setTimeout;
+    if (window.MutationObserver) {
+        var opts = { childList: true, subtree: true };
+        watchSubtree = function watchSubtree(el, cb) {
+            var observer = new MutationObserver(cb);
+            observer.observe(el, opts);
+        };
+    } else {
+        watchSubtree = function watchSubtree(el, cb) {
+            el.addEventListener('DOMSubtreeModified', function handler() {
+                el.removeEventListener('DOMSubtreeModified', handler);
+                raf(function () {
+                    cb();
+                    el.addEventListener('DOMSubtreeModified', handler);
+                });
+            });
+        };
+    }
+}
 
 function nodeListToArray(nodeList) {
     return Array.prototype.slice.call(nodeList);
 }
 
 module.exports = {
-    nodeListToArray: nodeListToArray
+    nodeListToArray: nodeListToArray,
+    watchSubtree: watchSubtree
 };
 
 });
@@ -1057,7 +1081,6 @@ var NavigationEmitter = function () {
         this._keyEndListener = onKeyEnd.bind(model);
         this._clickListener = onClick.bind(model);
         this._focusExitListener = onFocusExit.bind(model);
-        this._observer = new MutationObserver(onMutation.bind(model));
 
         setData(model.items);
 
@@ -1073,7 +1096,7 @@ var NavigationEmitter = function () {
         el.addEventListener('click', this._clickListener);
         el.addEventListener('focusExit', this._focusExitListener);
 
-        this._observer.observe(el, { childList: true, subtree: true });
+        Util.watchSubtree(el, onMutation.bind(model));
     }
 
     _createClass(NavigationEmitter, null, [{
