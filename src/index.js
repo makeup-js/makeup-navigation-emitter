@@ -37,10 +37,16 @@ function onKeyNext() {
 }
 
 function onClick(e) {
-    const indexData = e.target.dataset.makeupIndex;
-    if (indexData !== undefined) {
-        this.index = indexData;
+    let element = e.target;
+    let indexData = element.dataset.makeupIndex;
+
+    // traverse ancestors until interactive element is found
+    while (!indexData) {
+        element = element.parentNode;
+        indexData = element.dataset.makeupIndex;
     }
+
+    this.index = indexData;
 }
 
 function onKeyHome() {

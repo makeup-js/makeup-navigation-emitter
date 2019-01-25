@@ -47,10 +47,16 @@ function onKeyNext() {
 }
 
 function onClick(e) {
-    var indexData = e.target.dataset.makeupIndex;
-    if (indexData !== undefined) {
-        this.index = indexData;
+    var element = e.target;
+    var indexData = element.dataset.makeupIndex;
+
+    // traverse ancestors until interactive element is found
+    while (!indexData) {
+        element = element.parentNode;
+        indexData = element.dataset.makeupIndex;
     }
+
+    this.index = indexData;
 }
 
 function onKeyHome() {
