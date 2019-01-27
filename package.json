@@ -52,8 +52,8 @@
   },
   "dependencies": {
     "custom-event-polyfill": "^0.3.0",
-    "makeup-exit-emitter": "~0.0",
-    "makeup-key-emitter": "~0.0"
+    "makeup-exit-emitter": "~0.0.4",
+    "makeup-key-emitter": "~0.0.3"
   },
   "files": [
     "browser.json",

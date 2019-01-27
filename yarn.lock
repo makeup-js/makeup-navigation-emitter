@@ -2861,16 +2861,18 @@ lru-cache@^4.0.1:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
 
-makeup-exit-emitter@~0.0:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/makeup-exit-emitter/-/makeup-exit-emitter-0.0.3.tgz#619bce4c0ca663d662275b7db16d922896d1a99e"
+makeup-exit-emitter@~0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/makeup-exit-emitter/-/makeup-exit-emitter-0.0.4.tgz#26482e73db3ef6ef5f8ac2c3c21e8197488fd458"
+  integrity sha512-qcfKD3R9fXGlekobtjHIgkyqY4Y2NNP0H1RjPtZMDgf216oKwdvvY7JyxHanuJbjlN/i17A35SXhya6eqhuE2g==
   dependencies:
     custom-event-polyfill "~0.3"
     makeup-next-id "~0.0"
 
-makeup-key-emitter@~0.0:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/makeup-key-emitter/-/makeup-key-emitter-0.0.2.tgz#86e2e27166fd42a3e55f82b0ad304463b4b86289"
+makeup-key-emitter@~0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/makeup-key-emitter/-/makeup-key-emitter-0.0.3.tgz#4fe16127cce749a785f4e2538800415d267fd356"
+  integrity sha512-4R+0L5CtfrYuYui4odZcyjDMaVphZxf8Nirz77X0crAzHW2Izf0uVEVOOfi2/R5VwEXuRV/AHVAXp8hoLS0j+A==
   dependencies:
     custom-event-polyfill "~0.3"
 

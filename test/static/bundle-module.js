@@ -57,10 +57,10 @@ module.exports = {
 };
 
 });
-$_mod.installed("makeup-navigation-emitter$0.0.6", "makeup-key-emitter", "0.0.2");
-$_mod.main("/makeup-key-emitter$0.0.2", "");
-$_mod.installed("makeup-key-emitter$0.0.2", "custom-event-polyfill", "0.3.0");
-$_mod.def("/makeup-key-emitter$0.0.2/util", function(require, exports, module, __filename, __dirname) { 'use strict';
+$_mod.installed("makeup-navigation-emitter$0.0.6", "makeup-key-emitter", "0.0.3");
+$_mod.main("/makeup-key-emitter$0.0.3", "");
+$_mod.installed("makeup-key-emitter$0.0.3", "custom-event-polyfill", "0.3.0");
+$_mod.def("/makeup-key-emitter$0.0.3/util", function(require, exports, module, __filename, __dirname) { 'use strict';
 
 /*
     IE uses a different naming scheme for KeyboardEvent.key so we map the keyCode instead
@@ -91,12 +91,12 @@ module.exports = {
 };
 
 });
-$_mod.def("/makeup-key-emitter$0.0.2/index", function(require, exports, module, __filename, __dirname) { 'use strict';
+$_mod.def("/makeup-key-emitter$0.0.3/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
 // requires CustomEvent polyfill for IE9+
 // https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
 
-var util = require('/makeup-key-emitter$0.0.2/util'/*'./util.js'*/);
+var util = require('/makeup-key-emitter$0.0.3/util'/*'./util.js'*/);
 
 function onKeyDownOrUp(evt, el, keyEventType) {
     if (!evt.shiftKey) {
@@ -169,10 +169,10 @@ module.exports = {
 };
 
 });
-$_mod.installed("makeup-navigation-emitter$0.0.6", "makeup-exit-emitter", "0.0.3");
-$_mod.main("/makeup-exit-emitter$0.0.3", "");
-$_mod.installed("makeup-exit-emitter$0.0.3", "custom-event-polyfill", "0.3.0");
-$_mod.installed("makeup-exit-emitter$0.0.3", "makeup-next-id", "0.0.1");
+$_mod.installed("makeup-navigation-emitter$0.0.6", "makeup-exit-emitter", "0.0.4");
+$_mod.main("/makeup-exit-emitter$0.0.4", "");
+$_mod.installed("makeup-exit-emitter$0.0.4", "custom-event-polyfill", "0.3.0");
+$_mod.installed("makeup-exit-emitter$0.0.4", "makeup-next-id", "0.0.1");
 $_mod.main("/makeup-next-id$0.0.1", "");
 $_mod.def("/makeup-next-id$0.0.1/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
@@ -194,7 +194,7 @@ module.exports = function (el) {
 };
 
 });
-$_mod.def("/makeup-exit-emitter$0.0.3/index", function(require, exports, module, __filename, __dirname) { 'use strict';
+$_mod.def("/makeup-exit-emitter$0.0.4/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -313,8 +313,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Util = require('/makeup-navigation-emitter$0.0.6/util'/*'./util.js'*/);
-var KeyEmitter = require('/makeup-key-emitter$0.0.2/index'/*'makeup-key-emitter'*/);
-var ExitEmitter = require('/makeup-exit-emitter$0.0.3/index'/*'makeup-exit-emitter'*/);
+var KeyEmitter = require('/makeup-key-emitter$0.0.3/index'/*'makeup-key-emitter'*/);
+var ExitEmitter = require('/makeup-exit-emitter$0.0.4/index'/*'makeup-exit-emitter'*/);
 var dataSetKey = 'data-makeup-index';
 
 var defaultOptions = {
