@@ -41,12 +41,14 @@ function onClick(e) {
     let indexData = element.dataset.makeupIndex;
 
     // traverse ancestors until interactive element is found
-    while (!indexData) {
+    while (element.tagName.toLowerCase() !== 'body' && !indexData) {
         element = element.parentNode;
         indexData = element.dataset.makeupIndex;
     }
 
-    this.index = indexData;
+    if (indexData !== undefined) {
+        this.index = indexData;
+    }
 }
 
 function onKeyHome() {
