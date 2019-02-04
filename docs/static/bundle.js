@@ -944,7 +944,7 @@ function onClick(e) {
     var indexData = element.dataset.makeupIndex;
 
     // traverse ancestors until interactive element is found
-    while (element.tagName.toLowerCase() !== 'body' && !indexData) {
+    while (element !== this._el && !indexData) {
         element = element.parentNode;
         indexData = element.dataset.makeupIndex;
     }

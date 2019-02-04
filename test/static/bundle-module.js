@@ -349,8 +349,8 @@ function onClick(e) {
     var element = e.target;
     var indexData = element.dataset.makeupIndex;
 
-    // traverse ancestors until interactive element is found
-    while (element.tagName.toLowerCase() !== 'body' && !indexData) {
+    // traverse widget ancestors until interactive element is found
+    while (element !== this._el && !indexData) {
         element = element.parentNode;
         indexData = element.dataset.makeupIndex;
     }
