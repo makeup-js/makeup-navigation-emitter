@@ -6,93 +6,95 @@ describe("makeup-navigation-emitter", function() {
                 + '<li>Button 3</li>'
             + '</ul>';
 
-    var testEl;
-    var testEmitter;
-
-    beforeAll(function() {
-        document.body.innerHTML = dom;
-
-        testEl = document.querySelector('.widget');
-        testEmitter; // eslint-disable-line
-    });
-
     describe('when module is imported', function() {
         it("module should not be undefined", function() {
             expect(NavigationEmitter).not.toEqual(undefined);
         });
     });
 
-    describe('when emitter is created with default options', function() {
+    describe('when emitter is created with default options in default state', function() {
+        var testEl;
         var onNavigationModelChange;
-        beforeAll(function() {
+
+        beforeEach(function() {
+            document.body.innerHTML = dom;
+
+            testEl = document.querySelector('.widget');
+            var testEmitter = NavigationEmitter.createLinear(testEl, 'li'); // eslint-disable-line
+
             onNavigationModelChange = jasmine.createSpy('onNavigationModelChange');
-            testEmitter = NavigationEmitter.createLinear(testEl, 'li');
+            testEl.addEventListener('navigationModelChange', onNavigationModelChange);
         });
 
-        it("should trigger navigationModelChange event on arrow left", function() {
-            // setup
-            testEl.addEventListener('navigationModelChange', onNavigationModelChange);
+        it("should trigger 0 navigationModelChange event on arrow left", function() {
             // execute
             testEl.dispatchEvent(new CustomEvent('arrowLeftKeyDown'));
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(0);
         });
 
-        it("should trigger navigationModelChange event on arrow up", function() {
-            // setup
-            testEl.addEventListener('navigationModelChange', onNavigationModelChange);
+        it("should trigger 0 navigationModelChange event on arrow up", function() {
             // execute
             testEl.dispatchEvent(new CustomEvent('arrowUpKeyDown'));
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(0);
         });
 
-        it("should trigger navigationModelChange event on arrow right", function(done) {
-            // assert
-            testEl.addEventListener('navigationModelChange', done);
+        it("should trigger 1 navigationModelChange event on arrow right", function() {
             // execute
             testEl.dispatchEvent(new CustomEvent('arrowRightKeyDown'));
+            // assert
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
         });
 
-        it("should trigger navigationModelChange event on arrow down", function(done) {
-            // assert
-            testEl.addEventListener('navigationModelChange', done);
+        it("should trigger 1 navigationModelChange event on arrow down", function() {
             // execute
             testEl.dispatchEvent(new CustomEvent('arrowDownKeyDown'));
+            // assert
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
         });
     });
 
-    describe('when emitter is created with wrap set to true', function() {
-        beforeAll(function() {
-            testEmitter = NavigationEmitter.createLinear(testEl, 'li', { wrap: true });
+    describe('when emitter is created with default options in default state with autoWrap', function() {
+        var testEl;
+        var onNavigationModelChange;
+
+        beforeEach(function() {
+            document.body.innerHTML = dom;
+
+            testEl = document.querySelector('.widget');
+            var testEmitter = NavigationEmitter.createLinear(testEl, 'li', { wrap: true }); // eslint-disable-line
+
+            onNavigationModelChange = jasmine.createSpy('onNavigationModelChange');
+            testEl.addEventListener('navigationModelChange', onNavigationModelChange);
         });
 
-        it("should trigger navigationModelChange event on arrow left", function(done) {
-            // assert
-            testEl.addEventListener('navigationModelChange', done);
+        it("should trigger 1 navigationModelChange event on arrow left", function() {
             // execute
             testEl.dispatchEvent(new CustomEvent('arrowLeftKeyDown'));
+            // assert
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
         });
 
-        it("should trigger navigationModelChange event on arrow up", function(done) {
-            // assert
-            testEl.addEventListener('navigationModelChange', done);
+        it("should trigger 1 navigationModelChange event on arrow up", function() {
             // execute
             testEl.dispatchEvent(new CustomEvent('arrowUpKeyDown'));
+            // assert
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
         });
 
-        it("should trigger navigationModelChange event on arrow right", function(done) {
-            // assert
-            testEl.addEventListener('navigationModelChange', done);
+        it("should trigger 1 navigationModelChange event on arrow right", function() {
             // execute
             testEl.dispatchEvent(new CustomEvent('arrowRightKeyDown'));
+            // assert
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
         });
 
-        it("should trigger navigationModelChange event on arrow down", function(done) {
-            // assert
-            testEl.addEventListener('navigationModelChange', done);
+        it("should trigger 1 navigationModelChange event on arrow down", function() {
             // execute
             testEl.dispatchEvent(new CustomEvent('arrowDownKeyDown'));
+            // assert
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
         });
     });
 });
