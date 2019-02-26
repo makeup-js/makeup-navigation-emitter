@@ -38,13 +38,14 @@
     "eslint-config-ebay": "^1",
     "jasmine-core": "^3",
     "karma": "^4",
+    "karma-chrome-launcher": "^2",
     "karma-coverage": "^1",
     "karma-html-reporter": "~0.2",
     "karma-jasmine": "^2",
-    "karma-phantomjs-launcher": "^1",
     "lasso-cli": "^2",
     "onchange": "^5",
     "parallelshell": "^3",
+    "puppeteer": "^1",
     "rimraf": "^2"
   },
   "dependencies": {
