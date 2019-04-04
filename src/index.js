@@ -142,6 +142,7 @@ class GridModel extends NavigationModel {
 class NavigationEmitter {
     constructor(el, model) {
         this.model = model;
+        this.el = el;
 
         this._keyPrevListener = onKeyPrev.bind(model);
         this._keyNextListener = onKeyNext.bind(model);
@@ -153,19 +154,35 @@ class NavigationEmitter {
 
         setData(model.items);
 
-        KeyEmitter.addKeyDown(el);
-        ExitEmitter.addFocusExit(el);
+        KeyEmitter.addKeyDown(this.el);
+        ExitEmitter.addFocusExit(this.el);
 
-        el.addEventListener('arrowLeftKeyDown', this._keyPrevListener);
-        el.addEventListener('arrowRightKeyDown', this._keyNextListener);
-        el.addEventListener('arrowUpKeyDown', this._keyPrevListener);
-        el.addEventListener('arrowDownKeyDown', this._keyNextListener);
-        el.addEventListener('homeKeyDown', this._keyHomeListener);
-        el.addEventListener('endKeyDown', this._keyEndListener);
-        el.addEventListener('click', this._clickListener);
-        el.addEventListener('focusExit', this._focusExitListener);
+        this.el.addEventListener('arrowLeftKeyDown', this._keyPrevListener);
+        this.el.addEventListener('arrowRightKeyDown', this._keyNextListener);
+        this.el.addEventListener('arrowUpKeyDown', this._keyPrevListener);
+        this.el.addEventListener('arrowDownKeyDown', this._keyNextListener);
+        this.el.addEventListener('homeKeyDown', this._keyHomeListener);
+        this.el.addEventListener('endKeyDown', this._keyEndListener);
+        this.el.addEventListener('click', this._clickListener);
+        this.el.addEventListener('focusExit', this._focusExitListener);
 
-        this._observer.observe(el, { childList: true, subtree: true });
+        this._observer.observe(this.el, { childList: true, subtree: true });
+    }
+
+    destroy() {
+        KeyEmitter.removeKeyDown(this.el);
+        ExitEmitter.removeFocusExit(this.el);
+
+        this.el.removeEventListener('arrowLeftKeyDown', this._keyPrevListener);
+        this.el.removeEventListener('arrowRightKeyDown', this._keyNextListener);
+        this.el.removeEventListener('arrowUpKeyDown', this._keyPrevListener);
+        this.el.removeEventListener('arrowDownKeyDown', this._keyNextListener);
+        this.el.removeEventListener('homeKeyDown', this._keyHomeListener);
+        this.el.removeEventListener('endKeyDown', this._keyEndListener);
+        this.el.removeEventListener('click', this._clickListener);
+        this.el.removeEventListener('focusExit', this._focusExitListener);
+
+        this._observer.disconnect();
     }
 
     static createLinear(el, itemSelector, selectedOptions) {
