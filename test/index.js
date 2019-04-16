@@ -14,6 +14,7 @@ describe('makeup-navigation-emitter', function() {
 
     describe('when emitter is created with default options in default state', function() {
         var testEl;
+        var testEmitter;
         var onNavigationModelChange;
         var testEmitter;
 
@@ -65,6 +66,27 @@ describe('makeup-navigation-emitter', function() {
             testEl.dispatchEvent(new CustomEvent('arrowDownKeyDown'));
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
+        });
+
+        it("should trigger 0 navigationModelChange event when index set to current index", function() {
+            // execute
+            testEmitter.model.index = 0;
+            // assert
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(0);
+        });
+
+        it("should trigger 1 navigationModelChange event when index set within bounds", function() {
+            // execute
+            testEmitter.model.index = 1;
+            // assert
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
+        });
+
+        it("should trigger 0 navigationModelChange event when index set out of bounds", function() {
+            // execute
+            testEmitter.model.index = 100;
+            // assert
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(0);
         });
     });
 
@@ -133,6 +155,27 @@ describe('makeup-navigation-emitter', function() {
             testEl.dispatchEvent(new CustomEvent('arrowDownKeyDown'));
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
+        });
+
+        it("should trigger 0 navigationModelChange event when index set to current index", function() {
+            // execute
+            testEmitter.model.index = 0;
+            // assert
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(0);
+        });
+
+        it("should trigger 1 navigationModelChange event when index set within bounds", function() {
+            // execute
+            testEmitter.model.index = 1;
+            // assert
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
+        });
+
+        it("should trigger 0 navigationModelChange event when index set out of bounds", function() {
+            // execute
+            testEmitter.model.index = 100;
+            // assert
+            expect(onNavigationModelChange).toHaveBeenCalledTimes(0);
         });
     });
 });

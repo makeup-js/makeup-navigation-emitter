@@ -591,9 +591,9 @@ https://github.com/joyent/node/blob/master/lib/module.js
     }
 })();
 
-$_mod.installed("makeup-navigation-emitter$0.1.3", "custom-event-polyfill", "1.0.6");
-$_mod.main("/custom-event-polyfill$1.0.6", "polyfill");
-$_mod.def("/custom-event-polyfill$1.0.6/polyfill", function(require, exports, module, __filename, __dirname) { // Polyfill for creating CustomEvents on IE9/10/11
+$_mod.installed("makeup-navigation-emitter$0.1.3", "custom-event-polyfill", "1.0.7");
+$_mod.main("/custom-event-polyfill$1.0.7", "polyfill");
+$_mod.def("/custom-event-polyfill$1.0.7/polyfill", function(require, exports, module, __filename, __dirname) { // Polyfill for creating CustomEvents on IE9/10/11
 
 // code pulled from:
 // https://github.com/d4tocchini/customevent-polyfill
@@ -615,11 +615,9 @@ $_mod.def("/custom-event-polyfill$1.0.6/polyfill", function(require, exports, mo
   } catch (e) {
     var CustomEvent = function(event, params) {
       var evt, origPrevent;
-      params = params || {
-        bubbles: false,
-        cancelable: false,
-        detail: undefined
-      };
+      params = params || {};
+      params.bubbles = !!params.bubbles;
+      params.cancelable = !!params.cancelable;
 
       evt = document.createEvent('CustomEvent');
       evt.initCustomEvent(
@@ -650,7 +648,7 @@ $_mod.def("/custom-event-polyfill$1.0.6/polyfill", function(require, exports, mo
 })();
 
 });
-$_mod.run("/custom-event-polyfill$1.0.6/polyfill");
+$_mod.run("/custom-event-polyfill$1.0.7/polyfill");
 $_mod.def("/makeup-navigation-emitter$0.1.3/util", function(require, exports, module, __filename, __dirname) { "use strict";
 
 function nodeListToArray(nodeList) {
@@ -1085,11 +1083,11 @@ var LinearNavigationModel = function (_NavigationModel) {
             return this._index;
         },
         set: function set(newIndex) {
-            if (newIndex !== this.index) {
+            if (newIndex > -1 && newIndex < this.items.length && newIndex !== this.index) {
                 this._el.dispatchEvent(new CustomEvent('navigationModelChange', {
                     detail: {
-                        toIndex: newIndex,
-                        fromIndex: this.index
+                        fromIndex: this.index,
+                        toIndex: newIndex
                     },
                     bubbles: false
                 }));

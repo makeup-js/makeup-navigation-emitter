@@ -133,11 +133,11 @@ var LinearNavigationModel = function (_NavigationModel) {
             return this._index;
         },
         set: function set(newIndex) {
-            if (newIndex !== this.index) {
+            if (newIndex > -1 && newIndex < this.items.length && newIndex !== this.index) {
                 this._el.dispatchEvent(new CustomEvent('navigationModelChange', {
                     detail: {
-                        toIndex: newIndex,
-                        fromIndex: this.index
+                        fromIndex: this.index,
+                        toIndex: newIndex
                     },
                     bubbles: false
                 }));
