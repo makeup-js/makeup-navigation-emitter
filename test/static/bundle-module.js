@@ -1,4 +1,4 @@
-$_mod.installed("makeup-navigation-emitter$0.1.3", "custom-event-polyfill", "1.0.7");
+$_mod.installed("makeup-navigation-emitter$0.1.4", "custom-event-polyfill", "1.0.7");
 $_mod.main("/custom-event-polyfill$1.0.7", "polyfill");
 $_mod.def("/custom-event-polyfill$1.0.7/polyfill", function(require, exports, module, __filename, __dirname) { // Polyfill for creating CustomEvents on IE9/10/11
 
@@ -55,7 +55,7 @@ $_mod.def("/custom-event-polyfill$1.0.7/polyfill", function(require, exports, mo
 })();
 
 });
-$_mod.def("/makeup-navigation-emitter$0.1.3/util", function(require, exports, module, __filename, __dirname) { "use strict";
+$_mod.def("/makeup-navigation-emitter$0.1.4/util", function(require, exports, module, __filename, __dirname) { "use strict";
 
 function nodeListToArray(nodeList) {
     return Array.prototype.slice.call(nodeList);
@@ -66,7 +66,7 @@ module.exports = {
 };
 
 });
-$_mod.installed("makeup-navigation-emitter$0.1.3", "makeup-key-emitter", "0.0.3");
+$_mod.installed("makeup-navigation-emitter$0.1.4", "makeup-key-emitter", "0.0.3");
 $_mod.main("/makeup-key-emitter$0.0.3", "");
 $_mod.installed("makeup-key-emitter$0.0.3", "custom-event-polyfill", "0.3.0");
 $_mod.main("/custom-event-polyfill$0.3.0", "custom-event-polyfill");
@@ -225,7 +225,7 @@ module.exports = {
 };
 
 });
-$_mod.installed("makeup-navigation-emitter$0.1.3", "makeup-exit-emitter", "0.0.4");
+$_mod.installed("makeup-navigation-emitter$0.1.4", "makeup-exit-emitter", "0.0.4");
 $_mod.main("/makeup-exit-emitter$0.0.4", "");
 $_mod.installed("makeup-exit-emitter$0.0.4", "custom-event-polyfill", "0.3.0");
 $_mod.installed("makeup-exit-emitter$0.0.4", "makeup-next-id", "0.0.1");
@@ -353,7 +353,7 @@ module.exports = {
 };
 
 });
-$_mod.def("/makeup-navigation-emitter$0.1.3/index", function(require, exports, module, __filename, __dirname) { 'use strict';
+$_mod.def("/makeup-navigation-emitter$0.1.4/index", function(require, exports, module, __filename, __dirname) { 'use strict';
 
 // requires Object.assign polyfill or transform for IE
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill
@@ -368,7 +368,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Util = require('/makeup-navigation-emitter$0.1.3/util'/*'./util.js'*/);
+var Util = require('/makeup-navigation-emitter$0.1.4/util'/*'./util.js'*/);
 var KeyEmitter = require('/makeup-key-emitter$0.0.3/index'/*'makeup-key-emitter'*/);
 var ExitEmitter = require('/makeup-exit-emitter$0.0.4/index'/*'makeup-exit-emitter'*/);
 var dataSetKey = 'data-makeup-index';
