@@ -950,8 +950,10 @@ module.exports = {
 };
 
 });
-$_mod.def("/makeup-navigation-emitter$0.1.4/index", function(require, exports, module, __filename, __dirname) { 'use strict'; // requires Object.assign polyfill or transform for IE
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill
+$_mod.def("/makeup-navigation-emitter$0.1.4/index", function(require, exports, module, __filename, __dirname) { 'use strict'; // requires following polyfills or transforms for IE11
+// Object.assign
+// NodeList.forEach
+// CustomEvent
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 

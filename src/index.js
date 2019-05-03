@@ -1,7 +1,9 @@
 'use strict';
 
-// requires Object.assign polyfill or transform for IE
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill
+// requires following polyfills or transforms for IE11
+// Object.assign
+// NodeList.forEach
+// CustomEvent
 
 const KeyEmitter = require('makeup-key-emitter');
 const ExitEmitter = require('makeup-exit-emitter');

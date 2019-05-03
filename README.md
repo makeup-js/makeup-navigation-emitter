@@ -130,6 +130,11 @@ For all 3 events, the event detail object contains the `fromIndex` and `toIndex`
 * https://github.com/makeup-js/makeup-exit-emitter
 * https://github.com/makeup-js/makeup-key-emitter
 
+## Requirements
+
+* CustomEvent polyfill for IE11 (included if bundling with Lasso)
+* NodeList.forEach polyfill for IE11 (included if bundling with Lasso)
+
 ## Development
 
 * `npm start`
