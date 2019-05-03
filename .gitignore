@@ -17,6 +17,10 @@ docs/index.js
 # Lasso tests temp files
 test/static/bundle-test.js
 test/static/lasso-client.js
+test/static/custom-event-polyfill.js
+test/static/makeup-next-id.js
+test/static/makeup-key-emitter.js
+test/static/makeup-exit-emitter.js
 
 # Unit Test & Code Coverage Reports
 reports

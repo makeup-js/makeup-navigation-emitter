@@ -2119,10 +2119,6 @@ custom-event-polyfill@^1:
   resolved "https://registry.yarnpkg.com/custom-event-polyfill/-/custom-event-polyfill-1.0.7.tgz#9bc993ddda937c1a30ccd335614c6c58c4f87aee"
   integrity sha512-TDDkd5DkaZxZFM8p+1I3yAlvM3rSr1wbrOliG4yJiwinMZN8z/iGL7BTlDkrJcYTmgUSb4ywVCc3ZaUtOtC76w==
 
-custom-event-polyfill@~0.3:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/custom-event-polyfill/-/custom-event-polyfill-0.3.0.tgz#99807839be62edb446b645832e0d80ead6fa1888"
-
 custom-event@~1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/custom-event/-/custom-event-1.0.1.tgz#5d02a46850adf1b4a317946a3928fccb5bfd0425"
@@ -4091,24 +4087,25 @@ lru-cache@4.1.x:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
 
-makeup-exit-emitter@~0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/makeup-exit-emitter/-/makeup-exit-emitter-0.0.4.tgz#26482e73db3ef6ef5f8ac2c3c21e8197488fd458"
-  integrity sha512-qcfKD3R9fXGlekobtjHIgkyqY4Y2NNP0H1RjPtZMDgf216oKwdvvY7JyxHanuJbjlN/i17A35SXhya6eqhuE2g==
+makeup-exit-emitter@~0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/makeup-exit-emitter/-/makeup-exit-emitter-0.1.0.tgz#cc2ef3583b859900372e9777fc83553761622ee4"
+  integrity sha512-cwtN+GL8ryAz527EccY71zzNk39mBee/hyk7b0nbmbSnXeWhDinctptcDMmRYXF1yrji+jpiUl7gpXBdUEHsnA==
   dependencies:
-    custom-event-polyfill "~0.3"
-    makeup-next-id "~0.0"
+    custom-event-polyfill "^1"
+    makeup-next-id "~0.0.2"
 
-makeup-key-emitter@~0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/makeup-key-emitter/-/makeup-key-emitter-0.0.3.tgz#4fe16127cce749a785f4e2538800415d267fd356"
-  integrity sha512-4R+0L5CtfrYuYui4odZcyjDMaVphZxf8Nirz77X0crAzHW2Izf0uVEVOOfi2/R5VwEXuRV/AHVAXp8hoLS0j+A==
+makeup-key-emitter@~0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/makeup-key-emitter/-/makeup-key-emitter-0.1.0.tgz#0a6b43763d6cfd808217f8a3d3c21a071b61e25c"
+  integrity sha512-c0pPu1dQ6+K7oq9oT+2Bc95tsGV0sZqzuszdNn5a44cl1n3uFUW4LkBhwRfRglPllAlPMRZB3vYium8yXjEOHQ==
   dependencies:
-    custom-event-polyfill "~0.3"
+    custom-event-polyfill "^1"
 
-makeup-next-id@~0.0:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/makeup-next-id/-/makeup-next-id-0.0.1.tgz#e4bf4821616c85c96d09631aa166732006468f06"
+makeup-next-id@~0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/makeup-next-id/-/makeup-next-id-0.0.2.tgz#70f19812b0b5cb8d5f0f7f78719179ea4b61a0ef"
+  integrity sha512-nAeDpu/X8Z978mvtj1GnalHNs3ulHOLIpEm2lLAM3SO8KdTDtl4uP3utfW8oYtOZIXaeMhR53JqxFDQ3ZYCZug==
 
 map-cache@^0.2.2:
   version "0.2.2"
