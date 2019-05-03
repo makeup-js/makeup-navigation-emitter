@@ -3,7 +3,6 @@
 // requires Object.assign polyfill or transform for IE
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill
 
-const Util = require('./util.js');
 const KeyEmitter = require('makeup-key-emitter');
 const ExitEmitter = require('makeup-exit-emitter');
 const dataSetKey = 'data-makeup-index';
@@ -72,7 +71,7 @@ function onFocusExit() {
 }
 
 function onMutation() {
-    this.items = Util.nodeListToArray(this._el.querySelectorAll(this._itemSelector));
+    this.items = this._el.querySelectorAll(this._itemSelector);
     setData(this.items);
 
     this._el.dispatchEvent(new CustomEvent('navigationModelMutation'));
@@ -83,7 +82,7 @@ class NavigationModel {
         this.options = Object.assign({}, defaultOptions, selectedOptions);
         this._el = el;
         this._itemSelector = itemSelector;
-        this.items = Util.nodeListToArray(el.querySelectorAll(itemSelector));
+        this.items = el.querySelectorAll(itemSelector);
     }
 }
 

@@ -1,16 +1,11 @@
-var NavigationEmitter = require('../index.js');
+const NavigationEmitter = require('../index.js');
+const emitters = [];
+const appender = document.getElementById('appender');
+const widgetEls = document.querySelectorAll('.widget');
+const consoleEls = document.querySelectorAll('.console');
+const wrapCheckbox = document.getElementById('wrap');
 
-function nodeListToArray(nodeList) {
-    return Array.prototype.slice.call(nodeList);
-}
-
-var emitters = [];
-var appender = document.getElementById('appender');
-var widgetEls = nodeListToArray(document.querySelectorAll('.widget'));
-var consoleEls = document.querySelectorAll('.console');
-var wrapCheckbox = document.getElementById('wrap');
-
-var options = [
+const options = [
     { },
     { autoInit: -1, autoReset: -1 },
     { autoInit: -1, autoReset: -1 }
@@ -18,9 +13,9 @@ var options = [
 
 appender.addEventListener('click', function() {
     widgetEls.forEach(function(el) {
-        var listEl = el.querySelector('ul');
-        var listItem = document.createElement('li');
-        listItem.innerText = 'Item ' + parseInt(listEl.querySelectorAll('li').length, 10);
+        const listEl = el.querySelector('ul');
+        const listItem = document.createElement('li');
+        listItem.innerText = `Item ${parseInt(listEl.querySelectorAll('li').length, 10)}`;
         listEl.appendChild(listItem);
     });
 });
