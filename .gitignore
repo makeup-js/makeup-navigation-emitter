@@ -15,7 +15,8 @@ build
 docs/index.js
 
 # Lasso tests temp files
-test/static
+test/static/bundle-test.js
+test/static/lasso-client.js
 
 # Unit Test & Code Coverage Reports
 reports
