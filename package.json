@@ -10,6 +10,7 @@
     "start": "npm run build && parallelshell \"npm run server\" \"npm run watch\"",
     "test": "npm run build:module && npm run lasso:tests && karma start --autoWatch false --singleRun true",
     "prepublishOnly": "npm run lint && npm run test && npm run clean:tests && npm run build:docs",
+    "prep": "npm run prepublishOnly",
     "build": "npm run build:module && npm run build:docs",
     "build:module": "babel src/index.js --out-file index.js",
     "build:docs": "babel docs/src/index.js --out-file docs/index.js && npm run lasso:docs && npm run clean:docs",
@@ -53,9 +54,9 @@
   },
   "dependencies": {
     "custom-event-polyfill": "^1",
-    "makeup-exit-emitter": "~0.1.0",
+    "makeup-exit-emitter": "~0.1.1",
     "makeup-key-emitter": "~0.1.0",
-    "nodelist-foreach-polyfill": "^1.2.0"
+    "nodelist-foreach-polyfill": "^1"
   },
   "files": [
     "browser.json",

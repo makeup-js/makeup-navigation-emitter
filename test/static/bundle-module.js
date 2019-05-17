@@ -13,8 +13,8 @@ $_mod.def("/nodelist-foreach-polyfill$1.2.0/index", function(require, exports, m
 });
 $_mod.installed("makeup-navigation-emitter$0.2.0", "makeup-key-emitter", "0.1.0");
 $_mod.installed("makeup-key-emitter$0.1.0", "custom-event-polyfill", "1.0.7");
-$_mod.installed("makeup-navigation-emitter$0.2.0", "makeup-exit-emitter", "0.1.0");
-$_mod.installed("makeup-exit-emitter$0.1.0", "custom-event-polyfill", "1.0.7");
+$_mod.installed("makeup-navigation-emitter$0.2.0", "makeup-exit-emitter", "0.1.1");
+$_mod.installed("makeup-exit-emitter$0.1.1", "custom-event-polyfill", "1.0.7");
 $_mod.def("/makeup-navigation-emitter$0.2.0/index", function(require, exports, module, __filename, __dirname) { 'use strict'; // requires following polyfills or transforms for IE11
 // Object.assign
 // NodeList.forEach
@@ -42,7 +42,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var KeyEmitter = require('/makeup-key-emitter$0.1.0/index'/*'makeup-key-emitter'*/);
 
-var ExitEmitter = require('/makeup-exit-emitter$0.1.0/index'/*'makeup-exit-emitter'*/);
+var ExitEmitter = require('/makeup-exit-emitter$0.1.1/index'/*'makeup-exit-emitter'*/);
 
 var dataSetKey = 'data-makeup-index';
 var defaultOptions = {
