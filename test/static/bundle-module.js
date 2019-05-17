@@ -1,5 +1,5 @@
-$_mod.installed("makeup-navigation-emitter$0.2.0", "custom-event-polyfill", "1.0.7");
-$_mod.installed("makeup-navigation-emitter$0.2.0", "nodelist-foreach-polyfill", "1.2.0");
+$_mod.installed("makeup-navigation-emitter$0.2.1", "custom-event-polyfill", "1.0.7");
+$_mod.installed("makeup-navigation-emitter$0.2.1", "nodelist-foreach-polyfill", "1.2.0");
 $_mod.main("/nodelist-foreach-polyfill$1.2.0", "");
 $_mod.def("/nodelist-foreach-polyfill$1.2.0/index", function(require, exports, module, __filename, __dirname) { if (window.NodeList && !NodeList.prototype.forEach) {
     NodeList.prototype.forEach = function (callback, thisArg) {
@@ -11,11 +11,11 @@ $_mod.def("/nodelist-foreach-polyfill$1.2.0/index", function(require, exports, m
 }
 
 });
-$_mod.installed("makeup-navigation-emitter$0.2.0", "makeup-key-emitter", "0.1.0");
+$_mod.installed("makeup-navigation-emitter$0.2.1", "makeup-key-emitter", "0.1.0");
 $_mod.installed("makeup-key-emitter$0.1.0", "custom-event-polyfill", "1.0.7");
-$_mod.installed("makeup-navigation-emitter$0.2.0", "makeup-exit-emitter", "0.1.1");
+$_mod.installed("makeup-navigation-emitter$0.2.1", "makeup-exit-emitter", "0.1.1");
 $_mod.installed("makeup-exit-emitter$0.1.1", "custom-event-polyfill", "1.0.7");
-$_mod.def("/makeup-navigation-emitter$0.2.0/index", function(require, exports, module, __filename, __dirname) { 'use strict'; // requires following polyfills or transforms for IE11
+$_mod.def("/makeup-navigation-emitter$0.2.1/index", function(require, exports, module, __filename, __dirname) { 'use strict'; // requires following polyfills or transforms for IE11
 // Object.assign
 // NodeList.forEach
 // CustomEvent
