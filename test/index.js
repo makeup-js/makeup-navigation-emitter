@@ -16,7 +16,6 @@ describe('makeup-navigation-emitter', function() {
         var testEl;
         var testEmitter;
         var onNavigationModelChange;
-        var testEmitter;
 
         beforeEach(function() {
             document.body.innerHTML = dom;
@@ -68,21 +67,21 @@ describe('makeup-navigation-emitter', function() {
             expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
         });
 
-        it("should trigger 0 navigationModelChange event when index set to current index", function() {
+        it('should trigger 0 navigationModelChange event when index set to current index', function() {
             // execute
             testEmitter.model.index = 0;
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(0);
         });
 
-        it("should trigger 1 navigationModelChange event when index set within bounds", function() {
+        it('should trigger 1 navigationModelChange event when index set within bounds', function() {
             // execute
             testEmitter.model.index = 1;
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
         });
 
-        it("should trigger 0 navigationModelChange event when index set out of bounds", function() {
+        it('should trigger 0 navigationModelChange event when index set out of bounds', function() {
             // execute
             testEmitter.model.index = 100;
             // assert
@@ -157,21 +156,21 @@ describe('makeup-navigation-emitter', function() {
             expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
         });
 
-        it("should trigger 0 navigationModelChange event when index set to current index", function() {
+        it('should trigger 0 navigationModelChange event when index set to current index', function() {
             // execute
             testEmitter.model.index = 0;
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(0);
         });
 
-        it("should trigger 1 navigationModelChange event when index set within bounds", function() {
+        it('should trigger 1 navigationModelChange event when index set within bounds', function() {
             // execute
             testEmitter.model.index = 1;
             // assert
             expect(onNavigationModelChange).toHaveBeenCalledTimes(1);
         });
 
-        it("should trigger 0 navigationModelChange event when index set out of bounds", function() {
+        it('should trigger 0 navigationModelChange event when index set out of bounds', function() {
             // execute
             testEmitter.model.index = 100;
             // assert

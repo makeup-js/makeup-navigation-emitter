@@ -10,6 +10,7 @@ const ExitEmitter = require('makeup-exit-emitter');
 const dataSetKey = 'data-makeup-index';
 
 const defaultOptions = {
+    axis: 'both',
     autoInit: 0,
     autoReset: null,
     wrap: false
@@ -158,10 +159,16 @@ class NavigationEmitter {
         KeyEmitter.addKeyDown(this.el);
         ExitEmitter.addFocusExit(this.el);
 
-        this.el.addEventListener('arrowLeftKeyDown', this._keyPrevListener);
-        this.el.addEventListener('arrowRightKeyDown', this._keyNextListener);
-        this.el.addEventListener('arrowUpKeyDown', this._keyPrevListener);
-        this.el.addEventListener('arrowDownKeyDown', this._keyNextListener);
+        const axis = model.options.axis;
+
+        if (axis === 'both' || axis === 'x') {
+            this.el.addEventListener('arrowLeftKeyDown', this._keyPrevListener);
+            this.el.addEventListener('arrowRightKeyDown', this._keyNextListener);
+        }
+        if (axis === 'both' || axis === 'y') {
+            this.el.addEventListener('arrowUpKeyDown', this._keyPrevListener);
+            this.el.addEventListener('arrowDownKeyDown', this._keyNextListener);
+        }
         this.el.addEventListener('homeKeyDown', this._keyHomeListener);
         this.el.addEventListener('endKeyDown', this._keyEndListener);
         this.el.addEventListener('click', this._clickListener);
