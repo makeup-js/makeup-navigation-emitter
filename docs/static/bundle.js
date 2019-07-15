@@ -591,7 +591,7 @@ https://github.com/joyent/node/blob/master/lib/module.js
     }
 })();
 
-$_mod.installed("makeup-navigation-emitter$0.2.2", "custom-event-polyfill", "1.0.7");
+$_mod.installed("makeup-navigation-emitter$0.2.3", "custom-event-polyfill", "1.0.7");
 $_mod.main("/custom-event-polyfill$1.0.7", "polyfill");
 $_mod.def("/custom-event-polyfill$1.0.7/polyfill", function(require, exports, module, __filename, __dirname) { // Polyfill for creating CustomEvents on IE9/10/11
 
@@ -649,7 +649,7 @@ $_mod.def("/custom-event-polyfill$1.0.7/polyfill", function(require, exports, mo
 
 });
 $_mod.run("/custom-event-polyfill$1.0.7/polyfill");
-$_mod.installed("makeup-navigation-emitter$0.2.2", "nodelist-foreach-polyfill", "1.2.0");
+$_mod.installed("makeup-navigation-emitter$0.2.3", "nodelist-foreach-polyfill", "1.2.0");
 $_mod.main("/nodelist-foreach-polyfill$1.2.0", "");
 $_mod.def("/nodelist-foreach-polyfill$1.2.0/index", function(require, exports, module, __filename, __dirname) { if (window.NodeList && !NodeList.prototype.forEach) {
     NodeList.prototype.forEach = function (callback, thisArg) {
@@ -662,7 +662,7 @@ $_mod.def("/nodelist-foreach-polyfill$1.2.0/index", function(require, exports, m
 
 });
 $_mod.run("/nodelist-foreach-polyfill$1.2.0/index");
-$_mod.installed("makeup-navigation-emitter$0.2.2", "makeup-key-emitter", "0.1.0");
+$_mod.installed("makeup-navigation-emitter$0.2.3", "makeup-key-emitter", "0.1.0");
 $_mod.main("/makeup-key-emitter$0.1.0", "");
 $_mod.installed("makeup-key-emitter$0.1.0", "custom-event-polyfill", "1.0.7");
 $_mod.def("/makeup-key-emitter$0.1.0/util", function(require, exports, module, __filename, __dirname) { 'use strict';
@@ -774,7 +774,7 @@ module.exports = {
 };
 
 });
-$_mod.installed("makeup-navigation-emitter$0.2.2", "makeup-exit-emitter", "0.1.1");
+$_mod.installed("makeup-navigation-emitter$0.2.3", "makeup-exit-emitter", "0.1.1");
 $_mod.main("/makeup-exit-emitter$0.1.1", "");
 $_mod.installed("makeup-exit-emitter$0.1.1", "custom-event-polyfill", "1.0.7");
 $_mod.installed("makeup-exit-emitter$0.1.1", "makeup-next-id", "0.0.3");
@@ -904,7 +904,7 @@ module.exports = {
 };
 
 });
-$_mod.def("/makeup-navigation-emitter$0.2.2/index", function(require, exports, module, __filename, __dirname) { 'use strict'; // requires following polyfills or transforms for IE11
+$_mod.def("/makeup-navigation-emitter$0.2.3/index", function(require, exports, module, __filename, __dirname) { 'use strict'; // requires following polyfills or transforms for IE11
 // Object.assign
 // NodeList.forEach
 // CustomEvent
@@ -1167,9 +1167,9 @@ function () {
 module.exports = NavigationEmitter;
 
 });
-$_mod.def("/makeup-navigation-emitter$0.2.2/docs/index", function(require, exports, module, __filename, __dirname) { "use strict";
+$_mod.def("/makeup-navigation-emitter$0.2.3/docs/index", function(require, exports, module, __filename, __dirname) { "use strict";
 
-var NavigationEmitter = require('/makeup-navigation-emitter$0.2.2/index'/*'../index.js'*/);
+var NavigationEmitter = require('/makeup-navigation-emitter$0.2.3/index'/*'../index.js'*/);
 
 var emitters = [];
 var appender = document.getElementById('appender');
@@ -1211,4 +1211,4 @@ wrapCheckbox.addEventListener('change', function (e) {
 // emitters[1].model.index = 1;
 
 });
-$_mod.run("/makeup-navigation-emitter$0.2.2/docs/index");
+$_mod.run("/makeup-navigation-emitter$0.2.3/docs/index");
