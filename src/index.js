@@ -63,13 +63,7 @@ function onKeyEnd() {
 
 function onFocusExit() {
     if (this.options.autoReset !== null) {
-        this._index = this.options.autoReset; // do not use index setter, it will trigger change event
-        this._el.dispatchEvent(new CustomEvent('navigationModelReset', {
-            detail: {
-                toIndex: this.options.autoReset
-            },
-            bubbles: false
-        }));
+        this.reset();
     }
 }
 
@@ -118,6 +112,18 @@ class LinearNavigationModel extends NavigationModel {
                 bubbles: false
             }));
             this._index = newIndex;
+        }
+    }
+
+    reset() {
+        if (this.options.autoReset !== null) {
+            this._index = this.options.autoReset; // do not use index setter, it will trigger change event
+            this._el.dispatchEvent(new CustomEvent('navigationModelReset', {
+                detail: {
+                    toIndex: this.options.autoReset
+                },
+                bubbles: false
+            }));
         }
     }
 

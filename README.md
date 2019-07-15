@@ -118,6 +118,11 @@ widgetEl.addEventListener('navigationModelChange', function(e) {
 * `wrap` : specify whether arrow keys should wrap/loop (default: false)
 * `axis` : specify 'x' for left/right arrow keys, 'y' for up/down arrow keys, or 'both' (default: 'both')
 
+## Methods
+
+* `destroy`: destroys all event listeners
+* `reset`: will force a reset to the value specified by `autoReset`
+
 ## Events
 
 * `navigationModelInit` - fired when the model is auto initialised
