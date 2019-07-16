@@ -233,7 +233,6 @@ module.exports = function (size) {
 
 });
 $_mod.def("/makeup-navigation-emitter$0.2.3/index", function(require, exports, module, __filename, __dirname) { 'use strict'; // requires following polyfills or transforms for IE11
-// Object.assign
 // NodeList.forEach
 // CustomEvent
 
@@ -269,15 +268,19 @@ var defaultOptions = {
   wrap: false
 };
 
+var itemFilter = function itemFilter(el) {
+  return !el.hidden;
+};
+
 function clearData(els) {
   els.forEach(function (el) {
-    el.removeAttribute(dataSetKey);
+    return el.removeAttribute(dataSetKey);
   });
 }
 
 function setData(els) {
   els.forEach(function (el, index) {
-    el.setAttribute(dataSetKey, index);
+    return el.setAttribute(dataSetKey, index);
   });
 }
 
@@ -285,7 +288,7 @@ function onKeyPrev() {
   if (!this.atStart()) {
     this.index--;
   } else if (this.options.wrap) {
-    this.index = this.items.length - 1;
+    this.index = this.filteredItems.length - 1;
   }
 }
 
@@ -316,7 +319,7 @@ function onKeyHome() {
 }
 
 function onKeyEnd() {
-  this.index = this.items.length;
+  this.index = this.filteredItems.length;
 }
 
 function onFocusExit() {
@@ -326,11 +329,10 @@ function onFocusExit() {
 }
 
 function onMutation() {
-  clearData(this.items);
-  this.items = Array.prototype.slice.call(this._el.querySelectorAll(this._itemSelector)).filter(function (el) {
-    return !el.hidden;
-  });
-  setData(this.items);
+  // clear data-makeup-index on ALL items
+  clearData(this.items); // set data-makeup-index only on filtered items (e.g. non-hidden ones)
+
+  setData(this.filteredItems);
 
   this._el.dispatchEvent(new CustomEvent('navigationModelMutation'));
 }
@@ -341,9 +343,6 @@ var NavigationModel = function NavigationModel(el, itemSelector, selectedOptions
   this.options = _extends({}, defaultOptions, selectedOptions);
   this._el = el;
   this._itemSelector = itemSelector;
-  this.items = Array.prototype.slice.call(el.querySelectorAll(itemSelector)).filter(function (item) {
-    return !item.hidden;
-  });
 };
 
 var LinearNavigationModel =
@@ -363,6 +362,7 @@ function (_NavigationModel) {
 
       _this._el.dispatchEvent(new CustomEvent('navigationModelInit', {
         detail: {
+          items: _this.filteredItems,
           toIndex: _this.options.autoInit
         },
         bubbles: false
@@ -389,7 +389,7 @@ function (_NavigationModel) {
   }, {
     key: "atEnd",
     value: function atEnd() {
-      return this.index === this.items.length - 1;
+      return this.index === this.filteredItems.length - 1;
     }
   }, {
     key: "atStart",
@@ -397,12 +397,22 @@ function (_NavigationModel) {
       return this.index <= 0;
     }
   }, {
+    key: "items",
+    get: function get() {
+      return this._el.querySelectorAll(this._itemSelector);
+    }
+  }, {
+    key: "filteredItems",
+    get: function get() {
+      return Array.prototype.slice.call(this.items).filter(itemFilter);
+    }
+  }, {
     key: "index",
     get: function get() {
       return this._index;
     },
     set: function set(newIndex) {
-      if (newIndex > -1 && newIndex < this.items.length && newIndex !== this.index) {
+      if (newIndex > -1 && newIndex < this.filteredItems.length && newIndex !== this.index) {
         this._el.dispatchEvent(new CustomEvent('navigationModelChange', {
           detail: {
             fromIndex: this.index,
@@ -444,7 +454,7 @@ function () {
     this._clickListener = onClick.bind(model);
     this._focusExitListener = onFocusExit.bind(model);
     this._observer = new MutationObserver(onMutation.bind(model));
-    setData(model.items);
+    setData(model.filteredItems);
     KeyEmitter.addKeyDown(this.el);
     ExitEmitter.addFocusExit(this.el);
     var axis = model.options.axis;

@@ -123,6 +123,11 @@ widgetEl.addEventListener('navigationModelChange', function(e) {
 * `destroy`: destroys all event listeners
 * `reset`: will force a reset to the value specified by `autoReset`
 
+## Properties
+
+* `items`: returns all items that match item selector
+* `filteredItems`: returns filtered items (e.g. non-hidden items)
+
 ## Events
 
 * `navigationModelInit` - fired when the model is auto initialised

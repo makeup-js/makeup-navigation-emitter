@@ -1,7 +1,6 @@
 'use strict';
 
 // requires following polyfills or transforms for IE11
-// Object.assign
 // NodeList.forEach
 // CustomEvent
 
@@ -16,23 +15,21 @@ const defaultOptions = {
     wrap: false
 };
 
+const itemFilter = (el) => !el.hidden;
+
 function clearData(els) {
-    els.forEach(function(el) {
-        el.removeAttribute(dataSetKey);
-    });
+    els.forEach(el => el.removeAttribute(dataSetKey));
 }
 
 function setData(els) {
-    els.forEach(function(el, index) {
-        el.setAttribute(dataSetKey, index);
-    });
+    els.forEach((el, index) => el.setAttribute(dataSetKey, index));
 }
 
 function onKeyPrev() {
     if (!this.atStart()) {
         this.index--;
     } else if (this.options.wrap) {
-        this.index = (this.items.length - 1);
+        this.index = (this.filteredItems.length - 1);
     }
 }
 
@@ -64,7 +61,7 @@ function onKeyHome() {
 }
 
 function onKeyEnd() {
-    this.index = this.items.length;
+    this.index = this.filteredItems.length;
 }
 
 function onFocusExit() {
@@ -74,11 +71,11 @@ function onFocusExit() {
 }
 
 function onMutation() {
+    // clear data-makeup-index on ALL items
     clearData(this.items);
-    this.items = Array.prototype.slice.call(this._el.querySelectorAll(this._itemSelector)).filter(
-        el => !el.hidden
-    );
-    setData(this.items);
+
+    // set data-makeup-index only on filtered items (e.g. non-hidden ones)
+    setData(this.filteredItems);
 
     this._el.dispatchEvent(new CustomEvent('navigationModelMutation'));
 }
@@ -88,9 +85,6 @@ class NavigationModel {
         this.options = Object.assign({}, defaultOptions, selectedOptions);
         this._el = el;
         this._itemSelector = itemSelector;
-        this.items = Array.prototype.slice.call(el.querySelectorAll(itemSelector)).filter(
-            item => !item.hidden
-        );
     }
 }
 
@@ -102,6 +96,7 @@ class LinearNavigationModel extends NavigationModel {
             this._index = this.options.autoInit;
             this._el.dispatchEvent(new CustomEvent('navigationModelInit', {
                 detail: {
+                    items: this.filteredItems,
                     toIndex: this.options.autoInit
                 },
                 bubbles: false
@@ -109,12 +104,20 @@ class LinearNavigationModel extends NavigationModel {
         }
     }
 
+    get items() {
+        return this._el.querySelectorAll(this._itemSelector);
+    }
+
+    get filteredItems() {
+        return Array.prototype.slice.call(this.items).filter(itemFilter);
+    }
+
     get index() {
         return this._index;
     }
 
     set index(newIndex) {
-        if (newIndex > -1 && newIndex < this.items.length && newIndex !== this.index) {
+        if (newIndex > -1 && newIndex < this.filteredItems.length && newIndex !== this.index) {
             this._el.dispatchEvent(new CustomEvent('navigationModelChange', {
                 detail: {
                     fromIndex: this.index,
@@ -139,7 +142,7 @@ class LinearNavigationModel extends NavigationModel {
     }
 
     atEnd() {
-        return this.index === this.items.length - 1;
+        return this.index === this.filteredItems.length - 1;
     }
 
     atStart() {
@@ -171,7 +174,7 @@ class NavigationEmitter {
         this._focusExitListener = onFocusExit.bind(model);
         this._observer = new MutationObserver(onMutation.bind(model));
 
-        setData(model.items);
+        setData(model.filteredItems);
 
         KeyEmitter.addKeyDown(this.el);
         ExitEmitter.addFocusExit(this.el);
