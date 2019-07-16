@@ -52,6 +52,12 @@ var defaultOptions = {
   wrap: false
 };
 
+function clearData(els) {
+  els.forEach(function (el) {
+    el.removeAttribute(dataSetKey);
+  });
+}
+
 function setData(els) {
   els.forEach(function (el, index) {
     el.setAttribute(dataSetKey, index);
@@ -103,7 +109,10 @@ function onFocusExit() {
 }
 
 function onMutation() {
-  this.items = this._el.querySelectorAll(this._itemSelector);
+  clearData(this.items);
+  this.items = Array.prototype.slice.call(this._el.querySelectorAll(this._itemSelector)).filter(function (el) {
+    return !el.hidden;
+  });
   setData(this.items);
 
   this._el.dispatchEvent(new CustomEvent('navigationModelMutation'));
@@ -115,7 +124,9 @@ var NavigationModel = function NavigationModel(el, itemSelector, selectedOptions
   this.options = _extends({}, defaultOptions, selectedOptions);
   this._el = el;
   this._itemSelector = itemSelector;
-  this.items = el.querySelectorAll(itemSelector);
+  this.items = Array.prototype.slice.call(el.querySelectorAll(itemSelector)).filter(function (item) {
+    return !item.hidden;
+  });
 };
 
 var LinearNavigationModel =
@@ -238,7 +249,9 @@ function () {
 
     this._observer.observe(this.el, {
       childList: true,
-      subtree: true
+      subtree: true,
+      attributeFilter: ['hidden'],
+      attributes: true
     });
   }
 
