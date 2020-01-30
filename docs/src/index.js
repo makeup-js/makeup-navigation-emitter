@@ -1,3 +1,6 @@
+// requires NodeList.forEach polyfill for IE
+require('nodelist-foreach-polyfill');
+
 const NavigationEmitter = require('../../index.js');
 const emitters = [];
 const appender = document.getElementById('appender');
