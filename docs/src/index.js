@@ -1,4 +1,4 @@
-const NavigationEmitter = require('../index.js');
+const NavigationEmitter = require('../../index.js');
 const emitters = [];
 const appender = document.getElementById('appender');
 const widgetEls = document.querySelectorAll('.widget');

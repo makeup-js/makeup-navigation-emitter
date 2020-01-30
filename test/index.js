@@ -1,5 +1,5 @@
 describe('makeup-navigation-emitter', function() {
-    var NavigationEmitter = require('../index.js');
+    var NavigationEmitter = require('../src/index.js');
     var dom = '<ul class="widget">'
                 + '<li>Button 1</li>'
                 + '<li>Button 2</li>'

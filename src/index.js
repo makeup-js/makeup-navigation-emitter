@@ -1,8 +1,11 @@
 'use strict';
 
-// requires following polyfills or transforms for IE11
-// NodeList.forEach
-// CustomEvent
+// requires NodeList.forEach polyfill for IE
+require('nodelist-foreach-polyfill');
+
+// requires CustomEvent polyfill for IE
+// https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
+const CustomEvent = require('custom-event');
 
 const KeyEmitter = require('makeup-key-emitter');
 const ExitEmitter = require('makeup-exit-emitter');

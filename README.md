@@ -13,7 +13,7 @@ Emits custom events based on keyboard navigation of one or two dimensional model
 
 ## Experimental
 
-This module is still in an experimental state, until it reaches v1.0.0 you must consider all minor releases as breaking
+This CommonJS module is still in an experimental state, until it reaches v1.0.0 you must consider all minor releases as breaking
 changes. Patch releases may introduce new features, but will be backwards compatible.
 
 ## Install
@@ -138,34 +138,10 @@ For all 3 events, the event detail object contains the `fromIndex` and `toIndex`
 
 ## Dependencies
 
-* https://github.com/makeup-js/makeup-exit-emitter
-* https://github.com/makeup-js/makeup-key-emitter
-
-## Requirements
-
-* CustomEvent polyfill for IE11 (included if bundling with Lasso)
-* NodeList.forEach polyfill for IE11 (included if bundling with Lasso)
-
-## Development
-
-* `npm start`
-* `npm test`
-* `npm run lint`
-* `npm run fix`
-* `npm run build`
-* `npm run clean`
-
-The following hooks exist, and do not need to be invoked manually:
-
-* `npm prepublishOnly` cleans, lints, tests and builds on every `npm publish` command
-* `pre-commit` cleans, lints, tests and builds on every `git commit` command
-
-## Test Reports
-
-Each test run will generate the following reports:
-
-* `/reports/coverage` contains Istanbul code coverage report
-* `/reports/html` contains HTML test report
+* [makeup-exit-emitter](https://github.com/makeup-js/makeup-exit-emitter)
+* [makeup-key-emitter](https://github.com/makeup-js/makeup-key-emitter)
+* [custom-event](https://github.com/webmodules/custom-event) (for IE)
+* [nodelist-foreach-polyfill](https://github.com/imagitama/nodelist-foreach-polyfill) (for IE11)
 
 ## CI Build
 
